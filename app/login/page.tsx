@@ -20,7 +20,7 @@ const Login = () => {
                 headers: { "Content-Type": "application/json" }
             })
             .then(res => res.json()).then(res => console.log(res.data))
-            //console.log(response)
+            console.log(response)
         } catch (error) {
             console.log("faild 500")
         }
