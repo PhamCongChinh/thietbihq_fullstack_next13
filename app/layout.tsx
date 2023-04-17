@@ -17,7 +17,8 @@ export default function RootLayout({
             <body>
                 <div>
                     <Link href={"/"}>Home</Link>{" "}
-                    <Link href={"/login"}>Login</Link>
+                    <Link href={"/login"}>Login</Link>{" "}
+                    <Link href={"/register"}>Register</Link>
                 </div>
                 <div>{children}</div>
             </body>
