@@ -8,7 +8,7 @@ const Register = () => {
         const username = event.target.username.value
         const password = event.target.password.value
         const repassword = event.target.repassword.value
-        /*if (password === repassword) {
+        if (password === repassword) {
             const data = {
                 username : username,
                 password : password,
@@ -27,7 +27,7 @@ const Register = () => {
             console.log(response)
         }else{
             console.log("Nhap lai")
-        }*/
+        }
 
 
     }
@@ -35,15 +35,15 @@ const Register = () => {
         <form onSubmit={register}>
             <div>
                 <label htmlFor="">Username</label>
-                <input type="text" name="username" />
+                <input type="text" name="username"/>
             </div>
             <div>
                 <label htmlFor="">Password</label>
-                <input type="text" name="password" />
+                <input type="text" name="password"/>
             </div>
             <div>
                 <label htmlFor="">Re Password</label>
-                <input type="text" name="repassword" />
+                <input type="text" name="repassword"/>
             </div>
             <button type="submit">Send</button>
         </form>
