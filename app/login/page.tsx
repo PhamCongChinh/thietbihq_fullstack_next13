@@ -1,9 +1,9 @@
 'use client'
 
-//import axios from "axios"
+import { useRouter } from "next/navigation"
 
 const Login = () => {
-
+    const router = useRouter()
     const login = async (event: any) => {
         event.preventDefault()
         const username = event.target.username.value
@@ -13,18 +13,22 @@ const Login = () => {
             password: password
         }
         const url = 'http://localhost:3000/api/login'
-        try {
-            const response = await fetch(url, {
-                method:'POST',
-                body: JSON.stringify(data),
-                headers: { "Content-Type": "application/json" }
-            })
-            .then(res => res.json()).then(res => console.log(res.data))
-            console.log(response)
-        } catch (error) {
-            console.log("faild 500")
-        }
-        
+
+        await fetch(url, {
+            method:'POST',
+            body: JSON.stringify(data),
+            headers: { "Content-Type": "application/json" }
+        })
+        .then((res) => res.json())
+        .then((res) => {
+            console.log('Login: ', res.message)
+            if (res.message === 'SUCCESS') {
+                router.push('/dashboard')
+            }else{
+                router.push('/login')
+            }
+        })
+        .catch((error) => console.log(error))
     }
     return(
         <form onSubmit={login}>
