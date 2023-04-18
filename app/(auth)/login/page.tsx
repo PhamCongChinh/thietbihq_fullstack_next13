@@ -30,18 +30,21 @@ const Login = () => {
         })
         .catch((error) => console.log(error))
     }
-    return(
-        <form onSubmit={login}>
-            <div>
-                <label htmlFor="">Username</label>
-                <input type="text" name="username"/>
-            </div>
-            <div>
-                <label htmlFor="">Password</label>
-                <input type="text" name="password"/>
-            </div>
-            <button type="submit">Send</button>
-        </form>
+    return (
+        <div>
+            <h4>Login</h4>
+            <form onSubmit={login}>
+                <div>
+                    <label htmlFor="">Username</label>
+                    <input type="text" name="username" />
+                </div>
+                <div>
+                    <label htmlFor="">Password</label>
+                    <input type="text" name="password" />
+                </div>
+                <div><button type="submit">Send</button></div>
+            </form>
+        </div>
     )
 }
 export default Login

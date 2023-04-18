@@ -1,4 +1,4 @@
-//import './globals.css'
+import './globals.css'
 
 import Link from "next/link"
 
@@ -12,15 +12,18 @@ export default function RootLayout({
 }: {
     children: React.ReactNode
 }) {
+    const rand = Math.floor(Math.random() * 100)
     return (
         <html lang="en">
             <body>
-                <div>
-                    <Link href={"/"}>Home</Link>{" "}
-                    <Link href={"/login"}>Login</Link>{" "}
-                    <Link href={"/register"}>Register</Link>
-                </div>
-                <div>{children}</div>
+                <nav className="">
+                    <Link href="/" >Home</Link>{" "}
+                    <Link href="/login">Login</Link>{" "}
+                    <Link href="/register">Register</Link>
+                </nav>
+                <h4>Random number {rand}</h4>
+                
+                {children}
             </body>
         </html>
     )

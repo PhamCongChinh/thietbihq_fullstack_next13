@@ -1,8 +1,11 @@
 'use client'
 
+import { useState } from "react"
 
 const Register = () => {
-    
+
+    const [loi, setLoi] = useState('')
+    console.log(loi)
     const register = async (event: any) => {
         event.preventDefault()
         const username = event.target.username.value
@@ -26,27 +29,31 @@ const Register = () => {
 
             console.log(response)
         }else{
+            setLoi('Looi roi')
             console.log("Nhap lai")
         }
-
+        
 
     }
     return (
-        <form onSubmit={register}>
             <div>
-                <label htmlFor="">Username</label>
-                <input type="text" name="username"/>
+                <h4>Register</h4>
+                <form onSubmit={register}>
+                    <div>
+                        <label htmlFor="">Username</label>
+                        <input type="text" name="username" />
+                    </div>
+                    <div>
+                        <label htmlFor="">Password</label>
+                        <input type="text" name="password" />
+                    </div>
+                    <div>
+                        <label htmlFor="">Re Password</label>
+                        <input type="text" name="repassword" />
+                    </div>
+                    <button type="submit">Send</button>
+                </form>
             </div>
-            <div>
-                <label htmlFor="">Password</label>
-                <input type="text" name="password"/>
-            </div>
-            <div>
-                <label htmlFor="">Re Password</label>
-                <input type="text" name="repassword"/>
-            </div>
-            <button type="submit">Send</button>
-        </form>
     )
 }
 
