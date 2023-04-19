@@ -1,12 +1,11 @@
-'use client'
+import Edit from "./edit";
 
 export default function Test() {
+    
     return(
         <div>
-            <form action="http://localhost:3000/api/users" method="GET">
-                <label htmlFor="">ABC</label>
-                <input type="text" />
-            </form>
+            <h3>BAC</h3>
+            <Edit />
         </div>
     )
 }

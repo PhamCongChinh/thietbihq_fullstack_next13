@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation"
 
 const Login = () => {
     const router = useRouter()
+
     const login = async (event: any) => {
         event.preventDefault()
         const username = event.target.username.value
@@ -36,11 +37,11 @@ const Login = () => {
             <form onSubmit={login}>
                 <div>
                     <label htmlFor="">Username</label>
-                    <input type="text" name="username" />
+                    <input type="text" name="username"/>
                 </div>
                 <div>
                     <label htmlFor="">Password</label>
-                    <input type="text" name="password" />
+                    <input type="text" name="password"/>
                 </div>
                 <div><button type="submit">Send</button></div>
             </form>

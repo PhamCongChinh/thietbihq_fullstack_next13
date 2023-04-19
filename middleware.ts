@@ -2,18 +2,19 @@ import { NextResponse } from 'next/server'
 import { NextRequest } from 'next/server'
 import { verify } from './utils/auth/jwtSignVerify'
 import { decodeJwt } from 'jose'
-
-const secret_access_token = process.env.SECRET_ACCESS_TOKEN!
-const secret_refresh_token = process.env.SECRET_REFRESH_TOKEN!
+import { accessTokenSecret, refreshTokenSecret } from './helpers/constants'
 
 export async function middleware(request: NextRequest) {
+
+    const ipAddress = request.headers.get('x-forwarded-for')?.split(',')[0]
+    console.log("IP Address:", ipAddress)
 
     const token = request.cookies.get('token')?.value
     console.log(token)
     const loginURL = new URL('/login', request.url)
     if (token !== undefined) {
         try {
-            const payload_access_token = await verify(token, secret_access_token)
+            const payload_access_token = await verify(token, accessTokenSecret!)
             console.log("Payload in middleware: ", payload_access_token)
             return NextResponse.next()
         } catch (error: any) {
@@ -28,7 +29,7 @@ export async function middleware(request: NextRequest) {
                 const userData = await user.json()
                 console.log("userData:", userData.user[0].refreshToken)
                 try {
-                    const payloadRefreshToken = await verify(userData.user[0].refreshToken, secret_refresh_token)
+                    const payloadRefreshToken = await verify(userData.user[0].refreshToken, refreshTokenSecret!)
                     console.log("Payload of refresh token:", payloadRefreshToken.payload)
                     const newAccessToken = await fetch(`http://localhost:3000/api/refreshtoken`, {
                         method: 'POST',
