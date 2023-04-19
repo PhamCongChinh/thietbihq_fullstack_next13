@@ -6,8 +6,14 @@ import { accessTokenSecret, refreshTokenSecret } from './helpers/constants'
 
 export async function middleware(request: NextRequest) {
 
-    const ipAddress = request.headers.get('x-forwarded-for')?.split(',')[0]
-    console.log("IP Address:", ipAddress)
+    let ip = request.ip ?? request.headers.get('x-real-ip')
+    const forwardedFor = request.headers.get('x-forwarded-for')
+    if(!ip && forwardedFor){
+        ip = forwardedFor.split(',').at(0) ?? 'Unknown'
+    }
+    console.log("IP:", ip)
+    console.log("first")
+
 
     const token = request.cookies.get('token')?.value
     console.log(token)
