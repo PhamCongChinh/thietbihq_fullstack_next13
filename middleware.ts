@@ -63,7 +63,7 @@ export async function middleware(request: NextRequest) {
 
 export const config = {
     matcher: [
-        '/dashboard',
-        '/dashboard/:path*'
+        '/dashboard1',
+        '/dashboard1/:path*'
     ],
 }
