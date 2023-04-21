@@ -7,9 +7,33 @@ const inter = Inter({ subsets: ['latin'] })
 const Home = () => {
 
     return (
-        <div className="flex min-h-screen flex-col items-center justify-between p-24">
-            <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-                Chinh Pham
+        <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto">
+            <div className="">
+                <h1>Pham</h1>
+                <h1>Pham</h1>
+                <h1>Pham</h1>
+                <h1>Pham</h1>
+                <h1>Pham</h1>
+                <h1>Pham</h1>
+                <h1>Pham</h1>
+                <h1>Pham</h1>
+                <h1>Pham</h1>
+                <h1>Pham</h1>
+                <h1>Pham</h1>
+                <h1>Pham</h1>
+                <h1>Pham</h1>
+                <h1>Pham</h1>
+                <h1>Pham</h1>
+                <h1>Pham</h1>
+                <h1>Pham</h1>
+                <h1>Pham</h1>
+                <h1>Pham</h1>
+                <h1>Pham</h1>
+                <h1>Pham</h1>
+                <h1>Pham</h1>
+                <h1>Pham</h1>
+                <h1>Pham</h1>
+                <h1>Pham</h1>
             </div>
         </div>
     )
