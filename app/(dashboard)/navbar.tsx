@@ -29,7 +29,7 @@ const Navbar = () => {
                                 </button>
                             </div>
 
-                            <div className={`absolute top-10 right-1 my-4 text-base list-none bg-white divide-gray-100 rounded shadow ${isOpen?"hidden":"block"}`}>
+                            <div className={`absolute top-10 right-1 my-4 text-base list-none bg-white divide-gray-100 rounded shadow ${isOpen?"block":"hidden"}`}>
                                 <div className="px-4 py-3">
                                     <p className="text-sm text-gray-900">
                                         Cong Chinh

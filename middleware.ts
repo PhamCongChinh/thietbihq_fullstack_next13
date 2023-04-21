@@ -14,7 +14,6 @@ export async function middleware(request: NextRequest) {
     console.log("IP:", ip)
     console.log("first")
 
-
     const token = request.cookies.get('token')?.value
     console.log(token)
     const loginURL = new URL('/login', request.url)

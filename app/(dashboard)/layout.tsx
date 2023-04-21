@@ -16,7 +16,10 @@ export default function DashboardLayout({
         <section>
             <Navbar/>
             <Sidebar/>
-            {children}
+            <div className="p-4 sm:ml-64 sm:mt-14">
+                {children}
+            </div>
+            
         </section>
     )
 }
