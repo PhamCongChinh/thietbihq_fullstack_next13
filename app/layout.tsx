@@ -14,7 +14,6 @@ export default function RootLayout({
 
     const cookieStore = cookies()
     const theme = cookieStore.get('token')
-    console.log("theme, theme", theme?.value)
     
     return (
         <html lang="en">
