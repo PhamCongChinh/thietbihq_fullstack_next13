@@ -12,10 +12,10 @@ export async function middleware(request: NextRequest) {
         ip = forwardedFor.split(',').at(0) ?? 'Unknown'
     }
     console.log("IP:", ip)
-    console.log("first")
 
     const token = request.cookies.get('token')?.value
     console.log(token)
+    
     const loginURL = new URL('/login', request.url)
     if (token !== undefined) {
         try {
@@ -63,6 +63,7 @@ export async function middleware(request: NextRequest) {
 export const config = {
     matcher: [
         '/dashboard1',
-        '/dashboard1/:path*'
+        '/dashboard1/:path*',
+        '/api/:function*'
     ],
 }
