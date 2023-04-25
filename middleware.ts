@@ -64,6 +64,6 @@ export const config = {
     matcher: [
         '/dashboard1',
         '/dashboard1/:path*',
-        '/api/:function*'
+        //'/api/:function*'
     ],
 }
