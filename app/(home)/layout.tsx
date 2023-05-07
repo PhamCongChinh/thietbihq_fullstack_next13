@@ -22,14 +22,14 @@ export default function HomeLayout({
         <section>
             
             <div className="max-w-screen-xl flex flex-row mx-auto my-4 bg-slate-100">
-                <div className="basis-1/5 bg-white"><Sidebar/></div>
-                <div className="basis-4/5">
+                <div className="basis-0 lg:basis-1/5 bg-white"><Sidebar/></div>
+                <div className="basis-full lg:basis-4/5 bg-white">
                     <div>
                         <Image src={Banner} alt={"Banner"} priority />
                     </div>
                     <div className="flex flex-row">
-                        <div className="basis-3/4">{children}</div>
-                        <div className="basis-1/4"><SidebarRight/></div>
+                        <div className="basis-full lg:basis-3/4">{children}</div>
+                        <div className="basis-0 lg:basis-1/4"><SidebarRight/></div>
                     </div>
                 </div>
             </div>

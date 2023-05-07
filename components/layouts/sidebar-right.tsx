@@ -1,6 +1,22 @@
 const SidebarRight = () => {
     return(
-        <div>asdasd</div>
+        <div className="bg-white hidden lg:block">
+            <ul className="font-normal">
+                <li className="pl-4 pt-1 pb-1">Youtube</li>
+                <li className="pl-4 pt-1 pb-1">Youtube</li>
+                <li className="pl-4 pt-1 pb-1">Youtube</li>
+                <li className="pl-4 pt-1 pb-1">Youtube</li>
+                <li className="pl-4 pt-1 pb-1">Youtube</li>
+                <li className="pl-4 pt-1 pb-1">Youtube</li>
+                <li className="pl-4 pt-1 pb-1">Youtube</li>
+                <li className="pl-4 pt-1 pb-1">Youtube</li>
+                <li className="pl-4 pt-1 pb-1">Youtube</li>
+                <li className="pl-4 pt-1 pb-1">Youtube</li>
+                <li className="pl-4 pt-1 pb-1">Youtube</li>
+                <li className="pl-4 pt-1 pb-1">Youtube</li>
+                <li className="pl-4 pt-1 pb-1">Youtube</li>
+            </ul>
+        </div>
     )
 }
 
