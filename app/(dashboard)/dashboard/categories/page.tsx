@@ -1,17 +1,18 @@
 'use client'
+import { fetcher } from "@/helpers/constants"
 import Link from "next/link"
 import useSWR from 'swr'
 
-const fetcher = (args: any) => fetch(args).then(res => res.json())
 export default function Category(){
-    const { data, error, isLoading } = useSWR('http://localhost:3000/api/categories', fetcher)
+    const { data, error, isLoading } = useSWR('/api/categories', fetcher)
     if (error) return <div>failed to load</div>
     if (isLoading) return <div>loading...</div>
-    console.log(data)
 
-    const handleDelete = (event: any) => {
-        event.preventDefault()
-        console.log(event)
+    const handleDelete = async (id: string) => {
+        const res = await fetch(`http://localhost:3000/api/categories/${id}`,{
+            method: 'DELETE',
+        })
+        console.log(res)
     }
 
     return (
@@ -22,7 +23,7 @@ export default function Category(){
                 </span>
             </button>
             <table>
-                <thead>
+                <thead className="bg-slate-300">
                     <tr>
                         <td>ID</td>
                         <td>Name</td>
@@ -37,8 +38,8 @@ export default function Category(){
                             <td>{category.id}</td>
                             <td>{category.name}</td>
                             <td>{category.slug}</td>
-                            <td><Link href={`http://localhost:3000/api/categories/update/${category.id}`}>Update</Link></td>
-                            <td><button onClick={handleDelete}>Delete</button></td>
+                            <td><Link href={`http://localhost:3000/dashboard/categories/${category.id}`}>Update</Link></td>
+                            <td><button onClick={() => handleDelete(`${category.id}`)} className="cursor-pointer">Delete</button></td>
                         </tr>    
                     )}
                 </tbody>

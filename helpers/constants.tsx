@@ -12,4 +12,6 @@ export const refreshTokenSecret = process.env.REFRESH_TOKEN_SECRET
 export const cryptoSecret       = process.env.CRYPTO_SECRET
 
 
-// Query
+// useSWRConfig
+
+export const fetcher = (args: any) => fetch(args).then(res => res.json())
