@@ -26,6 +26,16 @@ const Home = () => {
                     <Image src={anh1} className='w-full' alt="Picture of the author" priority />
                 </div>
             </div>
+            <div className='w-full my-4'>
+                <ul className='flex flex-row justify-center'>
+                    <li className='border-2 px-3 py-1 cursor-pointer'>1</li>
+                    <li className='border-2 px-3 py-1 cursor-pointer'>2</li>
+                    <li className='border-2 px-3 py-1 cursor-pointer'>3</li>
+                    <li className='border-2 px-3 py-1 cursor-pointer'>4</li>
+                    <li className='border-2 px-3 py-1 cursor-pointer'>5</li>
+                    <li className='border-2 px-3 py-1 cursor-pointer'>6</li>
+                </ul>
+            </div>
         </div>
     )
 }

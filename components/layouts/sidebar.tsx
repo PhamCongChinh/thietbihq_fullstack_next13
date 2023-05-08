@@ -1,4 +1,7 @@
+'use client'
+
 const Sidebar = () => {
+
     return(
         <>
             <div className="bg-white"><h3 className="font-bold p-2 text-white text-center">Danh mục sản phẩm</h3></div>

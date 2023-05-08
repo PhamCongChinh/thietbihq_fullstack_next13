@@ -10,3 +10,6 @@ export const NOTFOUND   = 'NOT FOUND'
 export const accessTokenSecret  = process.env.ACCESS_TOKEN_SECRET
 export const refreshTokenSecret = process.env.REFRESH_TOKEN_SECRET 
 export const cryptoSecret       = process.env.CRYPTO_SECRET
+
+
+// Query
