@@ -2,7 +2,20 @@ import query from "@/config/dbconfig"
 import { NextRequest, NextResponse } from "next/server"
 
 const GET = async (request: NextRequest) => {
-    const categories = await query('SELECT * FROM category', [])
+    const { searchParams } = new URL(request.url)
+    const page = searchParams.get('page')
+    console.log(page)
+
+    const itemsPerPage = 3
+    //const pagesVisited = Number(page) * itemsPerPage
+    //const pageCount = Math.ceil(data.length/itemsPerPage)
+    // C1
+    const categories = await query('SELECT * FROM category WHERE id BETWEEN 5 AND 17', [])
+    console.log(categories)
+
+
+    // C2: select all
+    //const categories = await query('SELECT * FROM category', [])
     return NextResponse.json(categories)
 }
 
