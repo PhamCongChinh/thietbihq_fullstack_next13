@@ -5,27 +5,47 @@ import Link from "next/link"
 import { useState } from "react"
 import useSWR from 'swr'
 
+import { useSearchParams } from 'next/navigation'
+
 export default function Category(){
 
+    const searchParams = useSearchParams()
+    const search = searchParams.get("page")
 
     const [show, setShow] = useState(false)
     const [message, setMessage] = useState('')
-    const [pageNumber, setPageNumber] = useState(2)
 
-    const { data, error, isLoading } = useSWR('/api/categories', fetcher)
+    const { data, error, isLoading } = useSWR(`/api/categories?page=${search}`, fetcher)
     if (error) return <div>failed to load</div>
     if (isLoading) return <div>loading...</div>
+    const pageCount = Math.ceil(data.totalCategories[0].total/1)
+
+    const pagination = (pageCount: number) => {
+        let content = []
+        for (let index = 1; index <= pageCount; index++) {
+            content.push(<li key={index} className="border-2 px-3 py-1 cursor-pointer">
+                <Link href={`/dashboard/categories?page=${index}`}>{index}</Link>
+            </li>)
+        }
+        return content
+    }
+
+    let prev = Number(search) - 1
+    if (prev < 0) {
+        prev = 1
+    }
+    console.log(search)
+
+    let next = null
+    if (search == null) {
+        next = Number(search) + 2
+    }else{
+        next = Number(search) + 1
+        if(next > pageCount){
+            next = pageCount
+        }
+    }
     
-    const itemsPerPage = 3
-    const pagesVisited = pageNumber * itemsPerPage
-    const pageCount = Math.ceil(data.length/itemsPerPage)
-
-
-    console.log('pageNumber :', pageNumber)
-    console.log('pagesVisited :', pagesVisited)
-    console.log('pageCount :', pageCount)
-
-    console.log(data.slice(pagesVisited, pagesVisited + itemsPerPage))
 
     const handleDelete = async (id: string) => {
         const res = await fetch(`http://localhost:3000/api/categories/${id}`,{
@@ -62,7 +82,7 @@ export default function Category(){
                     </tr>
                 </thead>
                 <tbody>
-                    {data.slice(pagesVisited, pagesVisited + itemsPerPage).map((category: any, index: any) => 
+                    {data.categories.map((category: any, index: any) => 
                         <tr key={index}>
                             <td>{category.id}</td>
                             <td>{category.name}</td>
@@ -74,6 +94,23 @@ export default function Category(){
                 </tbody>
                 <tfoot></tfoot>
             </table>
+            <div className='w-full my-4'>
+                <ul className='flex flex-row justify-center'>
+                    <li className='border-2 px-3 py-1 cursor-pointer'>
+                        <Link href={`/dashboard/categories?page=${1}`}>First</Link>
+                    </li>
+                    <li className='border-2 px-3 py-1 cursor-pointer'>
+                        <Link href={`/dashboard/categories?page=${prev}`}>Pre</Link>
+                    </li>
+                    { pagination(pageCount) }
+                    <li className='border-2 px-3 py-1 cursor-pointer'>
+                        <Link href={`/dashboard/categories?page=${next}`}>Next</Link>
+                    </li>
+                    <li className='border-2 px-3 py-1 cursor-pointer'>
+                        <Link href={`/dashboard/categories?page=${pageCount}`}>Last</Link>
+                    </li>
+                </ul>
+            </div>
         </div>
     )
 }

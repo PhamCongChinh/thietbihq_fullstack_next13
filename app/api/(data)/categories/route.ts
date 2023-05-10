@@ -4,19 +4,23 @@ import { NextRequest, NextResponse } from "next/server"
 const GET = async (request: NextRequest) => {
     const { searchParams } = new URL(request.url)
     const page = searchParams.get('page')
-    console.log(page)
 
-    const itemsPerPage = 3
-    //const pagesVisited = Number(page) * itemsPerPage
-    //const pageCount = Math.ceil(data.length/itemsPerPage)
-    // C1
-    const categories = await query('SELECT * FROM category WHERE id BETWEEN 5 AND 17', [])
-    console.log(categories)
-
-
-    // C2: select all
+    let pageNumber = 0
+    if (Number(page) > 1) {
+        pageNumber = Number(page) - 1
+    }else{
+        pageNumber = 0
+    }
+    const itemsPerPage = 1
+    const pagesVisited = pageNumber * itemsPerPage
+    const categories = await query('SELECT * FROM category LIMIT ?, ?', [String(pagesVisited), String(itemsPerPage)])
+    const totalCategories = await query('SELECT COUNT(id) AS total FROM category', [])
+    const results = {
+        categories: categories,
+        totalCategories: totalCategories
+    }
     //const categories = await query('SELECT * FROM category', [])
-    return NextResponse.json(categories)
+    return NextResponse.json(results)
 }
 
 const POST = async (request: NextRequest) => {

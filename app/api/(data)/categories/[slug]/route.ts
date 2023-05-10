@@ -9,11 +9,18 @@ const GET = async (request: NextRequest, {
 ) => {
     const slug = params.slug
     let res
+    
     try {
-        res = await query(`SELECT * FROM category WHERE id = ?`, [slug])
+        if (slug === 'category-total') {
+            res = await query(`SELECT COUNT(id) AS total FROM category`, [])
+        } else {
+            res = await query(`SELECT * FROM category WHERE id = ?`, [slug])        
+        }
+        
     } catch (error) {
         console.log(error)
     }
+    console.log(res)
     return NextResponse.json(res)
 }
 
