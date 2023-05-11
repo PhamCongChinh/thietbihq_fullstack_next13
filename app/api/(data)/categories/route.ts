@@ -5,6 +5,8 @@ const GET = async (request: NextRequest) => {
     const { searchParams } = new URL(request.url)
     const page = searchParams.get('page')
 
+    console.log(page)
+
     let pageNumber = 0
     if (Number(page) > 1) {
         pageNumber = Number(page) - 1
@@ -19,6 +21,7 @@ const GET = async (request: NextRequest) => {
         categories: categories,
         totalCategories: totalCategories
     }
+    
     //const categories = await query('SELECT * FROM category', [])
     return NextResponse.json(results)
 }
