@@ -6,7 +6,8 @@ import useSWR from "swr"
 const Products = () => {
     const [show, setShow] = useState(false)
     const [select, setSelect] = useState("")
-    const [file, setFile] = useState(null)
+    const [fileImage, setFileImage] = useState(null)
+    const [fileImageName, setFileImageName] = useState("")
 
     // Get category id
     const {data, error, isLoading} = useSWR(`/api/categories/getCategories`, fetcher)
@@ -23,22 +24,39 @@ const Products = () => {
     } 
 
     const handleOnChangeFile = (e: any) => {
-        setFile(e.target.files[0].name)
+        console.log(e.target.files[0])
+        console.log(e.target.files[0].name)
+        setFileImage(e.target.files[0])
+        setFileImageName(e.target.files[0].name)
     }
 
-    const confirm = (e: any) => {
+    const confirm = async (e: any) => {
         e.preventDefault()
 
-        console.log(file)
+        const formData = new FormData()
+        formData.append('id', e.target.id.value)
+        formData.append('categoryId', select)
+        formData.append('name', e.target.name.value)
+        formData.append('slug', e.target.slug.value)
+        //formData.append('file', fileImage, fileImageName)
+        console.log(formData)
 
-        const data = {
+        /*const data = {
             id: e.target.id.value,
             categoryId: select,
             name: e.target.name.value,
             slug: e.target.slug.value,
-            imageFile: e.target.files[0],
-            imageLink: e.target.files[0].name
-        }
+            imageFile: file,
+            imageLink: fileName
+        }*/
+        //console.log(data)
+
+        const res = await fetch(`http://localhost:3000/api/products`, {
+            method: 'POST',
+            body: formData,
+            headers: { "content-type": "multipart/form-data" }
+        })
+        //console.log('client:', res)
         
     }
     
