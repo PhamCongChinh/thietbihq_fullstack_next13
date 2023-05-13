@@ -1,14 +1,18 @@
 import { NextRequest, NextResponse } from "next/server"
-
+export const config = {
+    api: {
+      bodyParser: false
+    }
+}
 const GET = async (request: NextRequest) => {
-
+    console.log("asdasdasdasdlkjalksdjkl")
+    return NextResponse.json({message: "poa"})
 }
 
 const POST = async (request: NextRequest) => {
     //const res = await request.json()
-    console.log(request)
     
-    return NextResponse.json(request)
+    return NextResponse.json({message: "POST"})
 }
 
 export {

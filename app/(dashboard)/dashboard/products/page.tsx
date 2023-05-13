@@ -1,13 +1,22 @@
 'use client'
 import { fetcher } from "@/helpers/constants"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import useSWR from "swr"
+import Image from 'next/image'
+import axios from "axios"
 
 const Products = () => {
     const [show, setShow] = useState(false)
     const [select, setSelect] = useState("")
-    const [fileImage, setFileImage] = useState(null)
-    const [fileImageName, setFileImageName] = useState("")
+
+    const [image, setImage] = useState<any | null>(null);
+    const [createObjectURL, setCreateObjectURL] = useState<any | null>(null);
+
+    useEffect(() => {
+        return () => {
+            image && URL.revokeObjectURL(image)
+        }
+    }, [image])
 
     // Get category id
     const {data, error, isLoading} = useSWR(`/api/categories/getCategories`, fetcher)
@@ -23,11 +32,12 @@ const Products = () => {
         setSelect(e.target.value)
     } 
 
-    const handleOnChangeFile = (e: any) => {
-        console.log(e.target.files[0])
-        console.log(e.target.files[0].name)
-        setFileImage(e.target.files[0])
-        setFileImageName(e.target.files[0].name)
+    const uploadToClient = (event: any) => {
+        if (event.target.files && event.target.files[0]) {
+            const file = event.target.files[0]
+            setImage(file);
+            setCreateObjectURL(URL.createObjectURL(file));
+        }
     }
 
     const confirm = async (e: any) => {
@@ -38,8 +48,10 @@ const Products = () => {
         formData.append('categoryId', select)
         formData.append('name', e.target.name.value)
         formData.append('slug', e.target.slug.value)
-        //formData.append('file', fileImage, fileImageName)
+        formData.append("file", image)
         console.log(formData)
+        const response = axios.post(`http://localhost:3000/api/products`, formData)
+        console.log(response)
 
         /*const data = {
             id: e.target.id.value,
@@ -51,11 +63,13 @@ const Products = () => {
         }*/
         //console.log(data)
 
-        const res = await fetch(`http://localhost:3000/api/products`, {
+        /*const res = await fetch(`http://localhost:3000/api/products`, {
             method: 'POST',
             body: formData,
-            headers: { "content-type": "multipart/form-data" }
-        })
+            headers: {
+                "Content-Type": "form-data"
+              },
+        })*/
         //console.log('client:', res)
         
     }
@@ -94,17 +108,21 @@ const Products = () => {
                                     </div>
                                     <div className="flex justify-between mt-2">
                                         <label htmlFor="">Image</label>
-                                        <input type="file" name="file" onChange={handleOnChangeFile} className="border"/>
+                                        <input type="file" name="image" onChange={uploadToClient} className="border"/>
+                                    </div>
+                                    <div className="w-40 aspect-video rounded flex items-center justify-center border-2 border-dashed cursor-pointer">
+                                        {image ? (
+                                            <Image src={createObjectURL} alt="234234" width={500} height={500}/>
+                                        ) : (
+                                            <span>Select Image</span>
+                                        )}
                                     </div>
                                     <div>
                                         <button type="submit" className="mt-2">Send</button>
                                     </div>
                                 </form>
                             </div>
-                            <div className="flex justify-center pb-4">
-                                <button onClick={confirm} className="pr-2">OK</button>
-                                <button onClick={handleCreate} className="pl-2">Cancel</button>
-                            </div>
+                            
                         </div>
                     </div>
                 </div>
