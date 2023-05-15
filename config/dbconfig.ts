@@ -5,7 +5,7 @@ const query = async (query: string, value: string[]) => {
         host: 'localhost',
         database: 'thietbihq',
         user: 'root',
-        password: ''
+        password: '10020521'
     })
     try {
         const [results] = await dbconnection.execute(query, value)
