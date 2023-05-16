@@ -1,14 +1,22 @@
-import { IncomingForm } from "formidable"
+import formidable, { IncomingForm } from "formidable"
+import { NextRequest, NextResponse } from "next/server"
+import fs from 'fs'
 import { NextApiRequest } from "next"
-import { NextResponse } from "next/server"
-
-export async function POST(request: NextApiRequest) {
-    //let res = await request.formData()
-    //let data = res.get("image")
-    //console.log(res)
-    //console.log(data)
 
 
+export async function POST(request: NextRequest) {
+    let res = await request.formData()
+    console.log("res", res)
+
+    let data = res.get("image")
+    let body = Object.fromEntries(res)
+
+    console.log("data", data)
+    console.log("body", body)
+
+    console.log(typeof(res))
+    console.log(typeof(data))
+    console.log(typeof(body))
 
     return NextResponse.json({ message: "POST" })
 }

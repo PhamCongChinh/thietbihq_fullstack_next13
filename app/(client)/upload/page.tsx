@@ -16,7 +16,8 @@ const Upload = () => {
     const handle = async (e:any) => {
         e.preventDefault()
         const formData = new FormData()
-        formData.append("image", image)
+        formData.append("image", image, image.name)
+        console.log(image)
         const response = await axios.post('/api/upload', formData)
         console.log(response)
         return response.data
