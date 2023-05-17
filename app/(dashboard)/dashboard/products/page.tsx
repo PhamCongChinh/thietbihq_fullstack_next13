@@ -50,8 +50,15 @@ const Products = () => {
         formData.append('slug', e.target.slug.value)
         formData.append("file", image)
         console.log(formData)
-        const response = axios.post(`http://localhost:3000/api/products`, formData)
-        console.log(response)
+        const response = await axios.post(`http://localhost:3000/api/products`, formData)
+        /*const response = await fetch(`http://localhost:3000/api/products`, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                "Content-Type": "multipart/form-data"
+            },
+        })*/
+        //console.log(response)
 
         /*const data = {
             id: e.target.id.value,
@@ -67,7 +74,7 @@ const Products = () => {
             method: 'POST',
             body: formData,
             headers: {
-                "Content-Type": "form-data"
+                "Content-Type": "multipart/form-data"
               },
         })*/
         //console.log('client:', res)
