@@ -16,11 +16,14 @@ const Upload = () => {
     const handle = async (e:any) => {
         e.preventDefault()
         const formData = new FormData()
-        formData.append("image", image, image.name)
-        console.log(image)
-        const response = await axios.post('/api/upload', formData)
-        console.log(response)
-        return response.data
+        formData.append("image", image)
+        console.log("image", image)
+
+        const response = await axios.post('/api/upload', formData, {
+            headers: { "Content-Type": "multipart/form-data" }
+        })
+        //console.log(response)
+        //return response.data
     }
     return (
         <form onSubmit={handle}>
