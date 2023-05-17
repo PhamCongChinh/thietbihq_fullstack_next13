@@ -1,12 +1,7 @@
-import formidable, { IncomingForm } from "formidable"
-import { promises as fs } from 'fs'
-import { NextApiRequest } from "next"
+
+import { toBuffer } from "@/libs/toBuffer"
 import { NextRequest, NextResponse } from "next/server"
-export const config = {
-    api: {
-      bodyParser: false
-    }
-}
+
 const GET = async (request: NextRequest) => {
     console.log("asdasdasdasdlkjalksdjkl")
     return NextResponse.json({message: "post"})
@@ -15,6 +10,12 @@ const GET = async (request: NextRequest) => {
 const POST = async (request: NextRequest) => {
     let formData = await request.formData()
     console.log(formData)
+    const file = formData.get("image") as File
+    const arrayBuffer = await file.arrayBuffer()
+    const buffer = toBuffer(arrayBuffer)
+    console.log(buffer)
+
+    
     return NextResponse.json({message: "POST"})
 }
 
