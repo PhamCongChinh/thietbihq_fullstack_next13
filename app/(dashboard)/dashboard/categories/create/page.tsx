@@ -1,9 +1,12 @@
 'use client'
 import { useRouter } from "next/navigation"
+import { useState } from "react"
 
 const Create = () => {
 
     const router = useRouter()
+
+    //const [slug, setSlug] = useState('')
 
     const handleCreate = async (event: any) => {
         event.preventDefault()
@@ -29,7 +32,7 @@ const Create = () => {
     return (
         <div>
             <form onSubmit={handleCreate}>
-                <label htmlFor="">Name</label>
+                <label htmlFor="">Chuyen muc</label>
                 <input type="text" name="category_name" required/>
                 <label htmlFor="">Slug</label>
                 <input type="text" name="category_slug" required/>

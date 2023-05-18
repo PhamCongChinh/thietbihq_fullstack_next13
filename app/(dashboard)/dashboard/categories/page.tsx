@@ -1,6 +1,6 @@
 'use client'
 import { Alert } from "@/components/templates/alert"
-import { fetcher } from "@/helpers/constants"
+import { SUCCESS, fetcher } from "@/helpers/constants"
 import Link from "next/link"
 import { useState } from "react"
 import useSWR from 'swr'
@@ -14,6 +14,9 @@ export default function Category(){
 
     const [show, setShow] = useState(false)
     const [message, setMessage] = useState('')
+
+    // Modal create
+    const [showCreate, setShowCreate] = useState(false)
 
     const { data, error, isLoading } = useSWR(`/api/categories?page=${search}`, fetcher)
     if (error) return <div>failed to load</div>
@@ -48,37 +51,50 @@ export default function Category(){
     
 
     const handleDelete = async (id: string) => {
-        const res = await fetch(`http://localhost:3000/api/categories/${id}`,{
+        return await fetch(`http://localhost:3000/api/categories/${id}`,{
             method: 'DELETE',
+        }).then(response => response.json()).then(res => {
+            console.log(res)
+            if (res.message == SUCCESS) {
+                setMessage('success')
+                setShow(true)
+            }else{
+                setMessage('unsuccess')
+                setShow(true)
+                alert("Loi roi")
+            }
         })
-        console.log(res)
-        if (res.ok) {
-            setMessage('success')
-            setShow(true)
-        }else{
-            setMessage('unsuccess')
-            setShow(true)
-        }
     }
 
     return (
         <div className="w-full">
-            <button className="bg-gray-500 hover:bg-blue-400 py-2 px-4 rounded inline-flex items-center">
-                <span className=" text-justify text-white font-bold">
+
+            
+            <button onClick={() => {setShowCreate(!showCreate)}}>Open</button>
+            {showCreate?(
+                <div className="fixed z-50 mx-auto bg-slate-400 h-72 w-full">
+                    <h1>Da them thanh cong</h1>
+                </div>):('')}
+
+
+            <button className="bg-gray-200 hover:bg-blue-400 py-2 px-4 rounded inline-flex items-center">
+                <span className=" text-justify text-black font-bold">
                     <Link href={'/dashboard/categories/create'}>new</Link>
                 </span>
             </button>
 
             {show == true ? <Alert data={message}/> : ''}
             
-            <table className="w-full">
-                <thead className="bg-slate-300">
+            <table className="w-full text-left text-gray-500">
+                <thead className="text-gray-700 uppercase bg-gray-50">
                     <tr>
-                        <td>ID</td>
-                        <td>Name</td>
-                        <td>Slug</td>
-                        <td>Update</td>
-                        <td>Delete</td>
+                        <th scope="col" className="px-6 py-3">ID</th>
+                        <th scope="col" className="px-6 py-3">Ten</th>
+                        <th scope="col" className="px-6 py-3">Slug</th>
+                        <th scope="col" className="px-6 py-3">
+                            Sua
+                        </th>
+                        <th scope="col" className="px-6 py-3">Xoa</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -87,13 +103,14 @@ export default function Category(){
                             <td>{category.id}</td>
                             <td>{category.name}</td>
                             <td>{category.slug}</td>
-                            <td><Link href={`http://localhost:3000/dashboard/categories/${category.id}`}>Update</Link></td>
+                            <td><Link href={`/dashboard/categories/${category.id}`}>Update</Link></td>
                             <td><button onClick={() => handleDelete(`${category.id}`)} className="cursor-pointer">Delete</button></td>
                         </tr>    
                     )}
                 </tbody>
                 <tfoot></tfoot>
             </table>
+
             <div className='w-full my-4'>
                 <ul className='flex flex-row justify-center'>
                     <li className='border-2 px-3 py-1 cursor-pointer'>

@@ -8,6 +8,7 @@ const Sidebar = () => {
                     <li><Link href={'/dashboard'}>Dashboard</Link></li>
                     <li><Link href={'/dashboard/categories'}>Category</Link></li>
                     <li><Link href={'/dashboard/products'}>Product</Link></li>
+                    <li><Link href={'/dashboard/images'}>Images</Link></li>
                     <li>Cài đặt</li>
                     <li>Cấu hình</li>
                 </ul>

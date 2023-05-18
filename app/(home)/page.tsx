@@ -1,7 +1,7 @@
 
 import Image from 'next/image'
 import { Inter } from 'next/font/google'
-import anh1 from '../../public/images/anh1.jpg'
+import mabu from '../../public/images/mabu.jpeg'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -11,19 +11,19 @@ const Home = () => {
         <div className="">
             <div className="grid grid-cols-2 lg:grid-cols-3 gap-2">
                 <div>
-                    <Image src={anh1} className='w-full' alt="Picture of the author" priority />
+                    <Image src={mabu} className='w-full' alt="Picture of the author" priority />
                 </div>
                 <div>
-                    <Image src={anh1} className='w-full' alt="Picture of the author" priority />
+                    <Image src={mabu} className='w-full' alt="Picture of the author" priority />
                 </div>
                 <div>
-                    <Image src={anh1} className='w-full' alt="Picture of the author" priority />
+                    <Image src={mabu} className='w-full' alt="Picture of the author" priority />
                 </div>
                 <div>
-                    <Image src={anh1} className='w-full' alt="Picture of the author" priority />
+                    <Image src={mabu} className='w-full' alt="Picture of the author" priority />
                 </div>
                 <div>
-                    <Image src={anh1} className='w-full' alt="Picture of the author" priority />
+                    <Image src={mabu} className='w-full' alt="Picture of the author" priority />
                 </div>
             </div>
             <div className='w-full my-4'>

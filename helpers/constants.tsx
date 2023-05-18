@@ -13,3 +13,5 @@ export const cryptoSecret       = process.env.CRYPTO_SECRET
 // useSWRConfig
 
 export const fetcher = (args: any) => fetch(args).then(res => res.json())
+
+

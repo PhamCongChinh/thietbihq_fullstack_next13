@@ -1,4 +1,5 @@
 import query from "@/config/dbconfig"
+import { SUCCESS, UNSUCCESS } from "@/helpers/constants"
 import { NextRequest, NextResponse } from "next/server"
 
 const GET = async (request: NextRequest, {
@@ -45,8 +46,9 @@ const DELETE = async (request: NextRequest, {
         await query(`DELETE FROM category WHERE id = ?`, [slug])
     } catch (error) {
         console.log(error)
+        return NextResponse.json({message: UNSUCCESS})
     }
-    return NextResponse.json({message: 'Thanh cong'})
+    return NextResponse.json({message: SUCCESS})
 }
 
 export { GET, PUT, DELETE }

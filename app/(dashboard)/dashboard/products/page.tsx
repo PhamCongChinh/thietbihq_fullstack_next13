@@ -49,7 +49,7 @@ const Products = () => {
         formData.append('name', e.target.name.value)
         formData.append('slug', e.target.slug.value)
         formData.append('image', image)
-        formData.append('imageLink', image)
+        formData.append('imageLink', e.target.imageLinkList.value)
         formData.append('price', e.target.price.value)
         formData.append('content', e.target.content.value)
         formData.append('discount', e.target.discount.value)
@@ -67,25 +67,6 @@ const Products = () => {
             },
         })*/
         console.log(response)
-
-        /*const data = {
-            id: e.target.id.value,
-            categoryId: select,
-            name: e.target.name.value,
-            slug: e.target.slug.value,
-            imageFile: file,
-            imageLink: fileName
-        }*/
-        //console.log(data)
-
-        /*const res = await fetch(`http://localhost:3000/api/products`, {
-            method: 'POST',
-            body: formData,
-            headers: {
-                "Content-Type": "multipart/form-data"
-              },
-        })*/
-        //console.log('client:', res)
         
     }
     
@@ -110,7 +91,7 @@ const Products = () => {
                                                     <option value={''} >Vui long cho chu chuyen muc</option>
                                                     {data?.map((item: any) => {
                                                         return(
-                                                            <option value={item.name} key={item.id}>{item.name}</option>
+                                                            <option value={item.id} key={item.id}>{item.name}</option>
                                                         )
                                                     })}
                                                 </select>
@@ -150,7 +131,7 @@ const Products = () => {
                                             </div>
                                             <div className="flex justify-between mt-2">
                                                 <label htmlFor="">Content</label>
-                                                <input type="text" name="content" className="border"/>
+                                                <textarea name="content" className="border" cols={50} rows={4}/>
                                             </div>
                                             <div className="flex justify-between mt-2">
                                                 <label htmlFor="">Discount</label>
@@ -178,6 +159,7 @@ const Products = () => {
                                         <button type="submit" className="mt-2">Send</button>
                                     </div>
                                 </form>
+                                <button className="mt-2" onClick={() => {setShow(false)}}>CENCAL</button>
                             </div>
                             
                         </div>
@@ -186,6 +168,8 @@ const Products = () => {
             : 
                 <></>
             }
+
+            
         </div>
     )
 }
