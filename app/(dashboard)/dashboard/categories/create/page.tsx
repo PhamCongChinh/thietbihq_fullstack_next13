@@ -1,41 +1,56 @@
 'use client'
-import { useRouter } from "next/navigation"
+import api from "@/config/axiosconfig"
+
+//import 'react-toastify/dist/ReactToastify.css'
+import { ToastContainer, toast } from 'react-toastify'
 import { useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { RootState } from "@/redux/store"
+import { success, unsucces } from "@/redux/features/messageSlice"
 
 const Create = () => {
 
-    const router = useRouter()
+    const [name, setName] = useState('')
+    const [slug, setSlug] = useState('')
 
-    //const [slug, setSlug] = useState('')
+    const message = useSelector((state: RootState) => state.message)
+    console.log(message)
+    const dispatch = useDispatch()
 
-    const handleCreate = async (event: any) => {
-        event.preventDefault()
-        const category_name = event.target.category_name.value
-        const category_slug = event.target.category_slug.value
-        //const category_name_regex = category_name.toLowerCase().replace(/ /g, '-')
-        const data = {
-            category_name: category_name,
-            category_slug: category_slug
-        }
-        console.log(data)
-        const res = await fetch('http://localhost:3000/api/categories', {
-            method:'POST',
-            body: JSON.stringify(data),
-            headers: { "Content-Type": "application/json" }
+    const handleCreate = async (e: any) => {
+        e.preventDefault()
+
+        const formData = new FormData()
+        formData.append("name", name)
+        formData.append("slug", slug)
+
+        return await api.post(`/api/categories`, formData)
+        .then(res => {
+            if (res.data.status == "0" && res.data.ecode == "00") {
+                toast("Da them thanh cong", { hideProgressBar: true, autoClose: 2000, type: 'success' })
+                setName('')
+                setSlug('')
+                
+            }else{
+                toast("Them that bai", { hideProgressBar: true, autoClose: 2000, type: 'error' })
+                dispatch(unsucces())
+            }
         })
-        console.log(res)
-        if (res.ok) {
-            router.push('/dashboard/categories')
-        }
     }
 
     return (
-        <div>
+        <div className="block max-w-sm rounded-lg p-6 shadow">
+            <span>{message}</span>
+            <button onClick={() => dispatch(success())}>1231231</button>
             <form onSubmit={handleCreate}>
-                <label htmlFor="">Chuyen muc</label>
-                <input type="text" name="category_name" required/>
-                <label htmlFor="">Slug</label>
-                <input type="text" name="category_slug" required/>
+                <div className="relative mb-6">
+                    <label htmlFor="">Chuyen muc</label>
+                    <input type="text" onChange={e => setName(e.target.value)} value={name} required/>
+                </div>
+                <div className="relative mb-6">
+                    <label htmlFor="">Slug</label>
+                    <input type="text" onChange={e => setSlug(e.target.value)} value={slug} required/>
+                </div>
                 <button type="submit">Send</button>
             </form>
         </div>

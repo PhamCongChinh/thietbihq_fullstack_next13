@@ -1,5 +1,9 @@
 import query from "@/config/dbconfig"
+import { SUCCESS, UNSUCCESS } from "@/helpers/constants"
+import { IMessage } from "@/libs/interface"
 import { NextRequest, NextResponse } from "next/server"
+
+let message: IMessage
 
 const GET = async (request: NextRequest) => {
     const { searchParams } = new URL(request.url)
@@ -28,8 +32,13 @@ const GET = async (request: NextRequest) => {
 
 const POST = async (request: NextRequest) => {
     const res = await request.json()
-    await query(`INSERT INTO category (id, name, slug) VALUES (?, ?, ?)`, [null, res.category_name, res.category_slug])
-    return NextResponse.json({message: 'Thanh cong'})
+    console.log(res)
+    try {
+        await query(`INSERT INTO categorys (id, name, slug) VALUES (?, ?, ?)`, [null, res.name, res.slug])
+    } catch (error) {
+        return NextResponse.json(UNSUCCESS)
+    }
+    return NextResponse.json(SUCCESS)
 }
 
 export { GET, POST }

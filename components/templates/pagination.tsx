@@ -1,7 +1,7 @@
 const Pagination = (total: Number) => {
     return(
         <>
-            
+            jaslkdjlk
         </>
     )
 }

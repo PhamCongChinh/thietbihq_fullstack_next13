@@ -1,5 +1,4 @@
 'use client'
-import { Alert } from "@/components/templates/alert"
 import { SUCCESS, fetcher } from "@/helpers/constants"
 import Link from "next/link"
 import { useState } from "react"
@@ -83,7 +82,6 @@ export default function Category(){
                 </span>
             </button>
 
-            {show == true ? <Alert data={message}/> : ''}
             
             <table className="w-full text-left text-gray-500">
                 <thead className="text-gray-700 uppercase bg-gray-50">

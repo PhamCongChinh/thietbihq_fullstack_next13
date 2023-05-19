@@ -1,4 +1,4 @@
-const Alert = (alert: any) => {
+const Toastify = (alert: any) => {
     return(
         
         <div className="bg-green-200">Successful</div>
@@ -6,5 +6,5 @@ const Alert = (alert: any) => {
 }
 
 export {
-    Alert
+    Toastify
 }

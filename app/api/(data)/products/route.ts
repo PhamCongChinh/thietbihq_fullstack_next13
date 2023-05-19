@@ -4,7 +4,7 @@ import { toBuffer } from "@/libs/toBuffer"
 import { NextRequest, NextResponse } from "next/server"
 
 const GET = async (request: NextRequest) => {
-    const [ data ] = await query(`CALL sp_products`, [])
+    const [ data ] = await query(`CALL PR_GET_PRODUCTS()`, [])
     console.log(data)
     return NextResponse.json(data)
 }
