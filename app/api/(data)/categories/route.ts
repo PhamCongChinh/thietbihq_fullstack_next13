@@ -17,7 +17,7 @@ const GET = async (request: NextRequest) => {
     }else{
         pageNumber = 0
     }
-    const itemsPerPage = 1
+    const itemsPerPage = Number(process.env.ITEMS_PER_PAGE)
     const pagesVisited = pageNumber * itemsPerPage
     const categories = await query('SELECT * FROM category LIMIT ?, ?', [String(pagesVisited), String(itemsPerPage)])
     const totalCategories = await query('SELECT COUNT(id) AS total FROM category', [])
@@ -34,7 +34,7 @@ const POST = async (request: NextRequest) => {
     const res = await request.json()
     console.log(res)
     try {
-        await query(`INSERT INTO categorys (id, name, slug) VALUES (?, ?, ?)`, [null, res.name, res.slug])
+        await query(`INSERT INTO category (id, name, slug) VALUES (?, ?, ?)`, [null, res.name, res.slug])
     } catch (error) {
         return NextResponse.json(UNSUCCESS)
     }

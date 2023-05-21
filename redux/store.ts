@@ -1,3 +1,5 @@
+'use client'
+
 import { configureStore } from '@reduxjs/toolkit'
 import messageReducer from './features/messageSlice'
 

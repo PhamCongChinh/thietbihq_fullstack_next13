@@ -1,7 +1,6 @@
 'use client'
 import api from "@/config/axiosconfig"
 
-//import 'react-toastify/dist/ReactToastify.css'
 import { ToastContainer, toast } from 'react-toastify'
 import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
@@ -14,7 +13,6 @@ const Create = () => {
     const [slug, setSlug] = useState('')
 
     const message = useSelector((state: RootState) => state.message)
-    console.log(message)
     const dispatch = useDispatch()
 
     const handleCreate = async (e: any) => {
@@ -25,7 +23,7 @@ const Create = () => {
         formData.append("slug", slug)
 
         return await api.post(`/api/categories`, formData)
-        .then(res => {
+        .then((res: { data: { status: string; ecode: string } }) => {
             if (res.data.status == "0" && res.data.ecode == "00") {
                 toast("Da them thanh cong", { hideProgressBar: true, autoClose: 2000, type: 'success' })
                 setName('')
@@ -41,6 +39,7 @@ const Create = () => {
     return (
         <div className="block max-w-sm rounded-lg p-6 shadow">
             <span>{message}</span>
+            <ToastContainer />
             <button onClick={() => dispatch(success())}>1231231</button>
             <form onSubmit={handleCreate}>
                 <div className="relative mb-6">
