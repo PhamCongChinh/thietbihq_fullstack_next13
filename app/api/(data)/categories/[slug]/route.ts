@@ -10,16 +10,13 @@ const GET = async (request: NextRequest, {
 ) => {
     const slug = params.slug
     let res
-    
-    try {
-        if (slug === 'getCategories') {
+
+    switch (slug) {
+        case "getCategories":
             res = await query(`SELECT id, name FROM category`, [])
-        } else {
-            res = await query(`SELECT * FROM category WHERE id = ?`, [slug])        
-        }
-        
-    } catch (error) {
-        console.log(error)
+            break;
+        default:
+            res = await query(`SELECT * FROM category WHERE id = ?`, [slug])
     }
     return NextResponse.json(res)
 }
