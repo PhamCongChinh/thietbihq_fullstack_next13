@@ -26,13 +26,13 @@ const GET = async (request: NextRequest, {
 
 const PUT = async (request: NextRequest) => {
     const res = await request.json()
-    console.log(res)
     try {
         await query(`UPDATE category SET name = ?, slug = ? WHERE id = ?`, [res.name, res.slug, res.id])
     } catch (error) {
         console.log(error)
+        return NextResponse.json(UNSUCCESS)
     }
-    return NextResponse.json({message: 'Thanh cong'})
+    return NextResponse.json(SUCCESS)
 }
 
 const DELETE = async (request: NextRequest, {
@@ -46,9 +46,9 @@ const DELETE = async (request: NextRequest, {
         await query(`DELETE FROM category WHERE id = ?`, [slug])
     } catch (error) {
         console.log(error)
-        return NextResponse.json({message: UNSUCCESS})
+        return NextResponse.json(UNSUCCESS)
     }
-    return NextResponse.json({message: SUCCESS})
+    return NextResponse.json(SUCCESS)
 }
 
 export { GET, PUT, DELETE }
