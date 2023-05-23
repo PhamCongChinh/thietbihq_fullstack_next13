@@ -2,6 +2,8 @@
 import query from "@/config/dbconfig"
 import { toBuffer } from "@/libs/toBuffer"
 import { NextRequest, NextResponse } from "next/server"
+import fs from 'fs'
+import { SUCCESS, UNSUCCESS } from "@/helpers/constants"
 
 const GET = async (request: NextRequest) => {
     const [ data ] = await query(`CALL PR_GET_PRODUCTS()`, [])
@@ -12,20 +14,19 @@ const GET = async (request: NextRequest) => {
 const POST = async (request: NextRequest) => {
     let formData = await request.formData()
     let id_category = Number(formData.get('categoryId'))
-    console.log(formData.get('categoryId'))
-    console.log(id_category)
-
-    await query(`INSERT INTO product (id_category, name, slug, image) VALUES (?,?,?,?)`, [ String(id_category), "null", "null", "null"])
-
-
-
+    let name = String(formData.get('name'))
+    let slug = String(formData.get('slug'))
     const file = formData.get("image") as File
-    const arrayBuffer = await file.arrayBuffer()
-    const buffer = toBuffer(arrayBuffer)
-    //console.log(buffer)
-
-    
-    return NextResponse.json({message: "POST"})
+    let fileName = file.name
+    try {
+        await query(`INSERT INTO product (id_category, name, slug, image) VALUES (?,?,?,?)`, [ String(id_category), name, slug, fileName])
+        const arrayBuffer = await file.arrayBuffer()
+        const buffer = toBuffer(arrayBuffer)
+        fs.writeFileSync(`./public/images/products/${file.name}`, buffer)
+    } catch (error) {
+        NextResponse.json(UNSUCCESS)
+    }
+    return NextResponse.json(SUCCESS)
 }
 
 export {

@@ -1,16 +1,13 @@
 'use client'
 
 import { fetcher } from "@/helpers/constants"
-import { swrFetch } from "@/helpers/swrFetch"
 import useSWR from "swr"
 
 const Sidebar = () => {
-    /*const {data, error, isLoading} = useSWR(`/api/categories/getCategories`, fetcher)
+    const {data, error, isLoading} = useSWR(`/api/categories/getCategories`, fetcher)
     console.log(data)
     if (error) {return <div>Error</div>}
-    if (isLoading) {return <div>Loading...</div>}*/
-    const data = swrFetch(`/api/categories/getCategories`)
-    console.log(data)
+    if (isLoading) {return <div>Loading...</div>}
     return(
         <>
             <div className="bg-white"><h3 className="font-bold p-2 text-white text-center">Danh mục sản phẩm</h3></div>

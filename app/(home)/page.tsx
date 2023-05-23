@@ -1,30 +1,32 @@
-
+'use client'
 import Image from 'next/image'
 import { Inter } from 'next/font/google'
+import Link from 'next/link'
+
 import mabu from '../../public/images/mabu.jpeg'
+import useSWR from 'swr'
+import { fetcher } from '@/helpers/constants'
 
 const inter = Inter({ subsets: ['latin'] })
 
 const Home = () => {
+
+    const { data, error, isLoading } = useSWR(`/api/products`, fetcher)
+    if (error) return <div>Error</div>
+    if (isLoading) return <div>Loading...</div>
     //max-w-screen-xl flex flex-wrap items-center justify-between mx-auto
     return (
         <div className="">
             <div className="grid grid-cols-2 lg:grid-cols-3 gap-2">
-                <div>
-                    <Image src={mabu} className='w-full' alt="Picture of the author" priority />
-                </div>
-                <div>
-                    <Image src={mabu} className='w-full' alt="Picture of the author" priority />
-                </div>
-                <div>
-                    <Image src={mabu} className='w-full' alt="Picture of the author" priority />
-                </div>
-                <div>
-                    <Image src={mabu} className='w-full' alt="Picture of the author" priority />
-                </div>
-                <div>
-                    <Image src={mabu} className='w-full' alt="Picture of the author" priority />
-                </div>
+                {data?.map((item: any) => {
+                    return (
+                        <div key={item.id}>
+                            <Link href={`/chi-tiet-san-pham/${item.slug}`}>
+                                <Image src={`/images/products/${item.image}`} width={300} height={300} className='w-full' alt="Picture of the author" priority />
+                            </Link>
+                        </div>
+                    )
+                })}
             </div>
             <div className='w-full my-4'>
                 <ul className='flex flex-row justify-center'>
