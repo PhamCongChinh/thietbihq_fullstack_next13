@@ -209,15 +209,7 @@ const Categories = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {getCategories.categories?.map((category: any, index: any) => 
-                        <tr key={index}>
-                            <td>{category.id}</td>
-                            <td>{category.name}</td>
-                            <td>{category.slug}</td>
-                            <td><button onClick={() => setShowUpdate({status: true, id: category.id})} className="cursor-pointer">Sửa</button></td>
-                            <td><button onClick={() => setShowDelete({status: true, id: category.id})} className="cursor-pointer">Xóa</button></td>
-                        </tr>    
-                    )}
+                    
                 </tbody>
                 <tfoot></tfoot>
             </table>
@@ -244,3 +236,15 @@ const Categories = () => {
 }
 
 export default Categories
+
+/**
+ * {getCategories.categories?.map((category: any, index: any) => 
+                        <tr key={index}>
+                            <td>{category.id}</td>
+                            <td>{category.name}</td>
+                            <td>{category.slug}</td>
+                            <td><button onClick={() => setShowUpdate({status: true, id: category.id})} className="cursor-pointer">Sửa</button></td>
+                            <td><button onClick={() => setShowDelete({status: true, id: category.id})} className="cursor-pointer">Xóa</button></td>
+                        </tr>    
+                    )}
+ */

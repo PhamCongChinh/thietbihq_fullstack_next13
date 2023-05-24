@@ -12,15 +12,12 @@ const GET = async (request: NextRequest, {
     let response
     switch (slug) {
         case 'alksd':
-            
             break;
-    
         default:
             response = await query(`SELECT * FROM product WHERE slug = ?`, [slug])
     }
-    const data = response[0]    
 
-    return NextResponse.json(data)
+    return NextResponse.json(response)
 }
 
 export {

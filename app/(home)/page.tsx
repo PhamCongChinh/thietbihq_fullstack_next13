@@ -12,6 +12,7 @@ const inter = Inter({ subsets: ['latin'] })
 const Home = () => {
 
     const { data, error, isLoading } = useSWR(`/api/products`, fetcher)
+    console.log(data)
     if (error) return <div>Error</div>
     if (isLoading) return <div>Loading...</div>
     //max-w-screen-xl flex flex-wrap items-center justify-between mx-auto
@@ -21,8 +22,8 @@ const Home = () => {
                 {data?.map((item: any) => {
                     return (
                         <div key={item.id}>
-                            <Link href={`/chi-tiet-san-pham/${item.slug}`}>
-                                <Image src={`/images/products/${item.image}`} width={300} height={300} className='w-full' alt="Picture of the author" priority />
+                            <Link href={`/${item.slug_category}/${item.slug}`}>
+                                <Image src={`/images/products/${item.image}`} width={200} height={200} alt="Picture of the author" priority />
                             </Link>
                         </div>
                     )

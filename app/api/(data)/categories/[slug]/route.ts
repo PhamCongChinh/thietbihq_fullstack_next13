@@ -9,16 +9,19 @@ const GET = async (request: NextRequest, {
     }
 ) => {
     const slug = params.slug
-    let res
-
+    console.log(slug)
+    let response
     switch (slug) {
+        case "getProductsByCategory":
+            response = await query(`SELECT id, name, slug FROM category`, [])
+            break;
         case "getCategories":
-            res = await query(`SELECT id, name FROM category`, [])
+            response = await query(`SELECT id, name, slug FROM category`, [])
             break;
         default:
-            res = await query(`SELECT * FROM category WHERE id = ?`, [slug])
+            response = await query(`SELECT * FROM category WHERE slug = ?`, [slug])
     }
-    return NextResponse.json(res)
+    return NextResponse.json(response)
 }
 
 const PUT = async (request: NextRequest) => {

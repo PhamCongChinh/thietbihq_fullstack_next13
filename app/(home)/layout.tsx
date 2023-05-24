@@ -17,10 +17,10 @@ export default function HomeLayout({
     children,
 }: {
     children: React.ReactNode
-}) {    
+}) {
     return (
         <section>
-            
+            <Navbar/>
             <div className="max-w-screen-xl flex flex-row mx-auto my-4 bg-slate-100">
                 <div className="basis-0 lg:basis-1/5 bg-white"><Sidebar/></div>
                 <div className="basis-full lg:basis-4/5 bg-white">

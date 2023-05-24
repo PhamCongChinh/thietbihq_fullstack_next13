@@ -7,27 +7,30 @@ let message: IMessage
 
 const GET = async (request: NextRequest) => {
     const { searchParams } = new URL(request.url)
-    const page = searchParams.get('page')
+    if(searchParams.get('page')){
+        const page = searchParams.get('page')
+        console.log(page)
 
-    console.log(page)
-
-    let pageNumber = 0
-    if (Number(page) > 1) {
-        pageNumber = Number(page) - 1
+        let pageNumber = 0
+        if (Number(page) > 1) {
+            pageNumber = Number(page) - 1
+        }else{
+            pageNumber = 0
+        }
+        const itemsPerPage = Number(process.env.ITEMS_PER_PAGE)
+        const pagesVisited = pageNumber * itemsPerPage
+        const categories = await query('SELECT * FROM category LIMIT ?, ?', [String(pagesVisited), String(itemsPerPage)])
+        const totalCategories = await query('SELECT COUNT(id) AS total FROM category', [])
+        const results = {
+            categories: categories,
+            totalCategories: totalCategories
+        }
+        return NextResponse.json(results)
     }else{
-        pageNumber = 0
-    }
-    const itemsPerPage = Number(process.env.ITEMS_PER_PAGE)
-    const pagesVisited = pageNumber * itemsPerPage
-    const categories = await query('SELECT * FROM category LIMIT ?, ?', [String(pagesVisited), String(itemsPerPage)])
-    const totalCategories = await query('SELECT COUNT(id) AS total FROM category', [])
-    const results = {
-        categories: categories,
-        totalCategories: totalCategories
+        const data = await query(`SELECT * FROM category`, [])
+        return NextResponse.json(data)
     }
     
-    //const categories = await query('SELECT * FROM category', [])
-    return NextResponse.json(results)
 }
 
 const POST = async (request: NextRequest) => {
