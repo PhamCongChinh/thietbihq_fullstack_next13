@@ -25,6 +25,8 @@ const Home = () => {
                             <Link href={`/${item.slug_category}/${item.slug}`}>
                                 <Image src={`/images/products/${item.image}`} width={200} height={200} alt="Picture of the author" priority />
                             </Link>
+                            <div>{item.name}</div>
+                            <div>{item.image}</div>
                         </div>
                     )
                 })}

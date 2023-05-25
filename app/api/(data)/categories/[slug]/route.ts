@@ -12,9 +12,6 @@ const GET = async (request: NextRequest, {
     console.log(slug)
     let response
     switch (slug) {
-        case "getProductsByCategory":
-            response = await query(`SELECT id, name, slug FROM category`, [])
-            break;
         case "getCategories":
             response = await query(`SELECT id, name, slug FROM category`, [])
             break;

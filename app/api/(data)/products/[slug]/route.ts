@@ -11,7 +11,7 @@ const GET = async (request: NextRequest, {
     const slug = params.slug
     let response
     switch (slug) {
-        case 'alksd':
+        case 'unknown':
             break;
         default:
             response = await query(`SELECT * FROM product WHERE slug = ?`, [slug])

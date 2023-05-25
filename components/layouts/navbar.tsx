@@ -1,12 +1,24 @@
+'use client'
+
 import Link from "next/link"
 import Image from "next/image"
 import Logo from '../../public/images/logo.png'
+import { useParams, usePathname, useRouter } from "next/navigation"
+
 const Navbar = () => {
+
+    const router = useRouter()
+    const params = useParams()
+    const pathname = usePathname()
+    console.log("Router:", router)
+    console.log("Params:", params)
+    console.log("PathName:", pathname)
+
     return (
-        <nav>
-            <div className="bg-gray-100 border-gray-200">
+        <nav className="">
+            <div className="bg-white border-gray-200">
                 <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-2">
-                    <div>Công ty TNHH Thương mại và sản xuất HQ</div>
+                    <div><Link href={`/`}>Công ty TNHH Thương mại và sản xuất HQ</Link></div>
                     <div>Đăng nhập</div>
                 </div>
             </div>
@@ -21,20 +33,17 @@ const Navbar = () => {
                 </div>
                 <div className="basis-1/5">HAhsd</div>
             </div>
-            <div className="bg-gray-100 border-gray-200">
+            <div className="hidden md:block bg-gray-100 border-gray-200">
                 <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-2">
                     <ul className="flex">
-                        <li><Link href={`/`}>Trang chu</Link></li>
-                        <li><Link href={`/tin-tuc`}>Tin tức</Link></li>
-                        <li><Link href={`/san-pham`}>San pham</Link></li>
-                        <li>Trang chủ</li>
-                        <li>Trang chủ</li>
-                        <li>Trang chủ</li>
-                        <li>Trang chủ</li>
-                        <li>Trang chủ</li>
-                        <li>Trang chủ</li>
+                        <li className="pr-3"><Link href={`/`}>Trang chu</Link></li>
+                        <li className="px-3"><Link href={`/tin-tuc`}>Tin tức</Link></li>
+                        <li className="px-3"><Link href={`/san-pham`}>San pham</Link></li>
                     </ul>
                 </div>
+            </div>
+            <div className="bg-slate-500">
+                {pathname}
             </div>
         </nav>
     )
