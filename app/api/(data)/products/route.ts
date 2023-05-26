@@ -6,7 +6,6 @@ import fs from 'fs'
 import { SUCCESS, UNSUCCESS } from "@/helpers/constants"
 
 const GET = async (request: NextRequest) => {
-    //const [ data ] = await query(`CALL PR_GET_PRODUCTS()`, [])
     const data = await query(`SELECT p.*, c.slug AS slug_category FROM product p, category c WHERE p.id_category = c.id`, [])
     console.log(data)
     return NextResponse.json(data)

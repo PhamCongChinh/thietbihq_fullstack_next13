@@ -28,30 +28,40 @@ const Page = () => {
     console.log("Data2", data2)
 
     return (
-        <div>
-            {data1?.map((item: any) => {
-                return (
-                    <div key={item.id}>
-                        <Link href={`${pathname}/${item.slug}`}>
-                            <Image src={`/images/products/${item.image}`} width={150} height={300} alt="Pham" priority/>
-                            {item.name}
-                        </Link>
-                    </div>
-                )
-            })}
+        <>
             <div>
-                {data2?.map((item: any) => {
+                {data1?.map((item: any) => {
                     return (
                         <div key={item.id}>
-                            <Image src={`/images/products/${item.image}`} width={150} height={300} alt="Pham" priority/>
-                            {item.name}
+                            <Link href={`${pathname}/${item.slug}`}>
+                                <Image src={`/images/products/${item.image}`} width={150} height={300} alt="Pham" priority/>
+                                {item.name}
+                            </Link>
                         </div>
                     )
                 })}
             </div>
-            
-            
-        </div>
+            <div>
+                {data2?.map((item: any) => {
+                    return (
+                        <div key={item.id} className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                            <div className="bg-slate-700">
+                                <Image 
+                                    src={`/images/products/${item.image}`}
+                                    height={300}
+                                    width={300}
+                                    alt={`${item.name}`}
+                                    priority/>
+                            </div>
+                            <div className="">
+                                <div>{item.name}</div>
+                                <div>{item.image}</div>
+                            </div>
+                        </div>
+                    )
+                })}
+            </div>
+        </>
     )
 }
 

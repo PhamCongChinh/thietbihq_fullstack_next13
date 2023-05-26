@@ -17,10 +17,10 @@ export default function ClientLayout({
     return (
         <section>
             <Navbar/>
-            <div className="max-w-screen-xl flex flex-row mx-auto my-4 bg-slate-100">
-                <div className="basis-1/5 bg-slate-200"><Sidebar/></div>
-                <div className="basis-3/5">{children}</div>
-                <div className="basis-1/5"><SidebarRight/></div>
+            <div className="container mx-auto bg-white w-full grid md:grid-cols-5">
+                <div className="hidden md:block"><Sidebar/></div>
+                <div className="col-span-5 md:col-span-3">{children}</div>
+                <div className="hidden md:block"><SidebarRight/></div>
             </div>
             <Footer/>
             

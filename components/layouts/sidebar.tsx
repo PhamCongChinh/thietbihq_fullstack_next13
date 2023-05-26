@@ -6,7 +6,6 @@ import useSWR from "swr"
 
 const Sidebar = () => {
     const {data, error, isLoading} = useSWR(`/api/categories`, fetcher)
-    console.log("Sidebar", data)
     if (error) {return <div>Error</div>}
     if (isLoading) {return <div>Loading...</div>}
     return(

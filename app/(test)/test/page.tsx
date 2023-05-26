@@ -7,7 +7,7 @@ const Test = () => {
 
     const [p, setP] = useState("<p></p>")
 
-    const handleP = () => {
+    const oSelect = () => {
         
     }
 
@@ -16,9 +16,9 @@ const Test = () => {
     }
     return (
         <div>
-            <div onClick={handleP}>H</div>
+            <div onClick={oSelect}>H</div>
             <form className="flex mx-auto border-2">
-                <textarea onChange={handleChange} name="" id="" cols={30} rows={10}></textarea>
+                <textarea onChange={handleChange} onSelect={oSelect} name="" id="" cols={30} rows={10}></textarea>
             </form>
             <br />
             <div>{input}</div>
