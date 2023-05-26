@@ -36,7 +36,7 @@ const Navbar = () => {
             </div>
             <div className="container mx-auto mt-8 py-2 md:grid grid-cols-5">
                 <div className="flex justify-center items-center">
-                    <Image src={Logo} alt={"Logo"} width={50} height={50} priority />
+                    <Image src={Logo} alt={"Logo"} width={120} height={120} priority />
                 </div>
                 <div className="relative col-span-3">
                     <form action="">
@@ -48,8 +48,8 @@ const Navbar = () => {
                 </div>
                 <div className="flex justify-center items-center">Lien he voi tao</div>
             </div>
-            <div className="hidden md:block bg-gray-100">
-                <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-2">
+            <div className="hidden w-full md:block bg-gray-100">
+                <div className="container flex flex-wrap items-center justify-between mx-auto p-2">
                     <ul className="flex">
                         <li className="pr-3"><Link href={`/`}>Trchu</Link></li>
                         <li className="px-3"><Link href={`/tin-tuc`}>inuc</Link></li>
@@ -58,7 +58,9 @@ const Navbar = () => {
                 </div>
             </div>
             <div className="bg-slate-500">
-                {pathname}
+                <div className="container mx-auto">
+                    {pathname}
+                </div>
             </div>
 
             {menubar ? (

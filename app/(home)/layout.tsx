@@ -5,7 +5,7 @@ import SidebarRight from "@/components/layouts/sidebar-right"
 import Link from "next/link"
 
 import Image from "next/image"
-import Banner from '../../public/images/banner.jpeg'
+import Banner from '../../public/images/banner.png'
 
 export const metadata = {
     title: 'Thiết bị HQ',
@@ -24,11 +24,11 @@ export default function HomeLayout({
                 <div className="hidden md:block"><Sidebar/></div>
                 <div className="md:col-span-4">
                     <div>
-                        <Image src={Banner} alt={"Banner"} priority />
+                        <Image src={Banner} alt={"Banner"} className="w-full" priority />
                     </div>
-                    <div className="">
-                        <div className="">{children}</div>
-                        <div className=""><SidebarRight/></div>
+                    <div className="grid grid-cols-4">
+                        <div className="col-span-3">{children}</div>
+                        <div className="bg-slate-200 hidden md:block"><SidebarRight/></div>
                     </div>
                 </div>
             </div>

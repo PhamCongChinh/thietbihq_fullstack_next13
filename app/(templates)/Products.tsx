@@ -3,13 +3,15 @@ import Image from "next/image"
 
 const Products = ({data}: any) => {
     return (
-        <div className="grid grid-cols-2 lg:grid-cols-3 gap-2">
+        <div className="grid grid-cols-2 md:grid-cols-3">
             {data?.map((item: any) => {
                 return (
-                    <div key={item.id}>
-                        <Link href={`/${item.slug_category}/${item.slug}`}>
-                            <Image src={`/images/products/${item.image}`} alt={`${item.name}`} width={200} height={200} />
-                        </Link>
+                    <div key={item.id} className="border-2 w-full">
+                        <div className="w-full">
+                            <Link href={`/${item.slug_category}/${item.slug}`}>
+                                <Image src={`/images/songoku.png`} alt={`${item.name}`} width={300} height={200} />
+                            </Link>
+                        </div>
                         <div>{item.name}</div>
                         <div>{item.image}</div>
                     </div>
@@ -20,3 +22,5 @@ const Products = ({data}: any) => {
 }
 
 export default Products
+
+//<Image src={`/images/products/${item.image}`} alt={`${item.name}`} width={200} height={200} />
