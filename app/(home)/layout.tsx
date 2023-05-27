@@ -22,12 +22,12 @@ export default function HomeLayout({
             <Navbar/>
             <div className="container mx-auto bg-white w-full grid md:grid-cols-5">
                 <div className="hidden md:block"><Sidebar/></div>
-                <div className="md:col-span-4">
+                <div className="p-1 md:col-span-4">
                     <div>
                         <Image src={Banner} alt={"Banner"} className="w-full" priority />
                     </div>
                     <div className="grid grid-cols-4">
-                        <div className="col-span-3">{children}</div>
+                        <div className="col-span-4 md:col-span-3">{children}</div>
                         <div className="bg-slate-200 hidden md:block"><SidebarRight/></div>
                     </div>
                 </div>

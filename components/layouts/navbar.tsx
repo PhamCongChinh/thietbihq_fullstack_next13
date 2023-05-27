@@ -31,7 +31,7 @@ const Navbar = () => {
                             </svg>
                         </div>
                     </div>
-                    <div>Đăng nhập</div>
+                    <div>ABCDEF</div>
                 </div>
             </div>
             <div className="container mx-auto mt-8 py-2 md:grid grid-cols-5">
