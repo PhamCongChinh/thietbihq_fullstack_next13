@@ -11,9 +11,6 @@ const Navbar = () => {
     const router = useRouter()
     const params = useParams()
     const pathname = usePathname()
-    console.log("Router:", router)
-    console.log("Params:", params)
-    console.log("PathName:", pathname)
 
     const [menubar, setMenubar] = useState(false)
 

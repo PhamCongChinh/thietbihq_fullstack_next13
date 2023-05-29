@@ -28,21 +28,36 @@ const Home = () => {
 
     let prev = 0
     let next = 0
-    
-    const { data, error, isLoading } = useSWR(`/api/productsPerPage?page=${page}`, fetcher)
-    if (error) return <div>Error</div>
-    if (isLoading) return <div>Loading...</div>
+
+    const { data:productsCount, error:productsCountError, isLoading: productsCountIsLoading} = useSWR(`/api/productsCount`, fetcher)
+    const pagination = (count: number) => {
+        let content = []
+        for(let i=1;i<=count;i++){
+            content.push(<li key={i} className={Number(search)== i ? "bg-blue-500 text-white" : ""}>
+                <Link href={`/?page=${i}`} className="border-2 px-3 py-1 cursor-pointer">
+                    <span>{i}</span>
+                </Link>
+            </li>)
+        }
+        return content
+    }
+
+
+    const { data:productsData, error:productsError, isLoading:productsIsLoading } = useSWR(`/api/productsPerPage?page=${page}`, fetcher)
+    if (productsError || productsCountError) return <div>Error</div>
+    if (productsIsLoading || productsCountIsLoading) return <div>Loading...</div>
     return (
         <div>
-            <Products data={data}/>
+            <Products data={productsData}/>
             <div className='mt-5'>
-                <Link href={`/?page=${1}`} className='border-2 p-4'>1</Link>
-                <Link href={`/?page=${2}`} className='border-2 p-4'>2</Link>
-                <Link href={`/?page=${3}`} className='border-2 p-4'>3</Link>
-                <Link href={`/?page=${4}`} className='border-2 p-4'>4</Link>
+                <ul className='flex'>
+                    {pagination(productsCount.count)}
+                </ul>
             </div>
         </div>
     )
 }
 
 export default Home
+
+//className="border-2 px-3 py-1 cursor-pointer"

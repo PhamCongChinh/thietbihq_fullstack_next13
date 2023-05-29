@@ -3,11 +3,13 @@
 import { configureStore } from '@reduxjs/toolkit'
 import messageReducer from './features/messageSlice'
 import breadcrumbReducer from './features/breadcrumbSlice'
+import cartReducer from './features/cartSlice'
 
 export const store = configureStore({
     reducer: {
         message: messageReducer,
         breadcrumb: breadcrumbReducer,
+        cart: cartReducer
     }
 })
 

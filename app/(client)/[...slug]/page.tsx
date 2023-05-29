@@ -1,16 +1,25 @@
 'use client'
 
 import { fetcher } from "@/helpers/constants"
+import { addToCart } from "@/redux/features/cartSlice"
+import { RootState } from "@/redux/store"
 import Image from "next/image"
 import Link from 'next/link'
 import { useParams, usePathname } from "next/navigation"
+import { useDispatch, useSelector } from "react-redux"
 import useSWR from "swr"
+
+/*interface cartItem {
+    id: string,
+    name: string,
+    slug: string,
+    total?: string
+}*/
 
 
 const Page = () => {
     const params = useParams()
     const pathname = usePathname()
-    console.log(pathname)
     const slug = params.slug.split(/[/]/)
     let slug_category
     let slug_product
@@ -24,8 +33,16 @@ const Page = () => {
     const {data: data2, error:error2, isLoading:isLoading2} = useSWR(`/api/products/${slug_product}`, fetcher)
     if(error1 || error2) return <div>Error</div>
     if(isLoading1 || isLoading2) return <div>Loading...</div>
-    console.log("Data1", data1)
-    console.log("Data2", data2)
+
+    const itemCart = {
+        id: "data2[0].id",
+        name: "data2[0].name",
+        slug: "data2[0].slug"
+    }
+    
+    const dispatch = useDispatch()
+    //const carts = useSelector((state: RootState) => state.cart)
+    
 
     return (
         <>
@@ -56,6 +73,13 @@ const Page = () => {
                             <div className="">
                                 <div>{item.name}</div>
                                 <div>{item.image}</div>
+
+                                <div className="mt-6 flex">
+                                    <button className="w-full border-2" onClick={
+                                        () => dispatch(addToCart())
+                                    }>ADD CAST</button>
+                                    <button className="w-full border-2">BUY</button>
+                                </div>
                             </div>
                         </div>
                     )
