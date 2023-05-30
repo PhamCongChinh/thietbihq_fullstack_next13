@@ -10,7 +10,7 @@ export const store = configureStore({
         message: messageReducer,
         breadcrumb: breadcrumbReducer,
         cart: cartReducer
-    }
+    },
 })
 
 export type RootState = ReturnType<typeof store.getState>
