@@ -22,7 +22,7 @@ const Products = () => {
     }, [image])
 
     // Get category id
-    const {data: categories, error: errorCategories, isLoading: isLoadingCategories} = useSWR(`/api/categories/getCategories`, fetcher)
+    const {data: categories, error: errorCategories, isLoading: isLoadingCategories} = useSWR(`/api/categories`, fetcher)
     const {data: products, error: errorProducts, isLoading: isLoadingProducts, mutate: mutateProducts} = useSWR(`/api/products`, fetcher)
     console.log(categories)
     if (errorCategories || errorProducts) return <div>failed to load</div>

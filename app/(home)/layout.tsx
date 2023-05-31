@@ -24,7 +24,7 @@ export default function HomeLayout({
                 <div className="hidden md:block"><Sidebar/></div>
                 <div className="p-1 md:col-span-4">
                     <div>
-                        <Image src={Banner} alt={"Banner"} className="w-full" priority />
+                        <Image src={Banner} alt={"Banner"} className="w-full h-auto" placeholder="blur"/>
                     </div>
                     <div className="grid grid-cols-4">
                         <div className="col-span-4 md:col-span-3">{children}</div>

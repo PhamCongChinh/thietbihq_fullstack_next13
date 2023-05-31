@@ -6,7 +6,7 @@ import { NextRequest, NextResponse } from "next/server"
 let message: IMessage
 
 const GET = async (request: NextRequest) => {
-    const { searchParams } = new URL(request.url)
+    /*const { searchParams } = new URL(request.url)
     if(searchParams.get('page')){
         const page = searchParams.get('page')
         console.log(page)
@@ -29,8 +29,10 @@ const GET = async (request: NextRequest) => {
     }else{
         const data = await query(`SELECT * FROM category`, [])
         return NextResponse.json(data)
-    }
-    
+    }*/
+
+    const data = await query(`SELECT * FROM category`, [])
+    return NextResponse.json(data)
 }
 
 const POST = async (request: NextRequest) => {

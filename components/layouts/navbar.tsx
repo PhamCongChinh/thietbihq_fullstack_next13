@@ -8,8 +8,6 @@ import { useState } from "react"
 
 const Navbar = () => {
 
-    const router = useRouter()
-    const params = useParams()
     const pathname = usePathname()
 
     const [menubar, setMenubar] = useState(false)
@@ -28,7 +26,7 @@ const Navbar = () => {
                             </svg>
                         </div>
                     </div>
-                    <div>ABCDEF</div>
+                    <div><Link href={`/gio-hang`}>ABCDEF</Link></div>
                 </div>
             </div>
             <div className="container mx-auto mt-8 py-2 md:grid grid-cols-5">
