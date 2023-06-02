@@ -26,7 +26,7 @@ const Navbar = () => {
                             </svg>
                         </div>
                     </div>
-                    <div><Link href={`/gio-hang`}>ABCDEF</Link></div>
+                    <div><Link href={`/gio-hang`}>Giỏ hàng</Link></div>
                 </div>
             </div>
             <div className="container mx-auto mt-8 py-2 md:grid grid-cols-5">
@@ -46,9 +46,9 @@ const Navbar = () => {
             <div className="hidden w-full md:block bg-gray-100">
                 <div className="container flex flex-wrap items-center justify-between mx-auto p-2">
                     <ul className="flex">
-                        <li className="pr-3"><Link href={`/`}>Trchu</Link></li>
-                        <li className="px-3"><Link href={`/tin-tuc`}>inuc</Link></li>
-                        <li className="px-3"><Link href={`/san-pham`}>Sphasd</Link></li>
+                        <li className="pr-3"><Link href={`/`}>Trang chủ</Link></li>
+                        <li className="px-3"><Link href={`/tin-tuc`}>Tin tức</Link></li>
+                        <li className="px-3"><Link href={`/san-pham`}>Sản phẩm</Link></li>
                     </ul>
                 </div>
             </div>

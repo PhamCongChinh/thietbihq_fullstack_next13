@@ -7,7 +7,7 @@ const GET = async (request: NextRequest) => {
     console.log(Number(page))
     let products = []
     if (Number(page) >= 0) {
-        const itemsPerPage = 1
+        const itemsPerPage = 5
         const pagesVisited = itemsPerPage * Number(page)
         try {
             products = await query(`SELECT * FROM product LIMIT ?, ?`, [String(pagesVisited), String(itemsPerPage)])

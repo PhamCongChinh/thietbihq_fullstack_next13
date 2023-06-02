@@ -10,11 +10,13 @@ const Sidebar = () => {
     if (isLoading) {return <div>Loading...</div>}
     return(
         <>
-            <div className="bg-white"><h3 className="font-bold p-2 text-white text-center">Danh mục sản phẩm</h3></div>
+            <div className="bg-white">
+                <h3 className="font-bold p-2 text-black text-center">Danh mục sản phẩm</h3>
+            </div>
             <ul className="font-normal">
                 {data?.map((item: any, index: any) => {
                     return(
-                        <li className="pl-4 pt-1 pb-1" key={item.id}>
+                        <li className="pl-4 pt-1 pb-1 border-t-2" key={item.id}>
                             <Link href={`/${item.slug}`}>{item.name}</Link>
                         </li>
                     )

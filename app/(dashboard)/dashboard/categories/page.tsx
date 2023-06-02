@@ -25,7 +25,7 @@ const Categories = () => {
     if (isLoadingCategories || isLoadingCategory) return <div>Đang tải...</div>
 
     // Xử lý tạo mới
-    const handleCreate = async (e: any) => {
+    const createSubmit = async (e: any) => {
         e.preventDefault()
 
         const formData = new FormData()
@@ -89,21 +89,21 @@ const Categories = () => {
                 <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
                     <div className="relative w-auto my-6 mx-auto max-w-3xl">
                         <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
-                            <div className="flex items-start justify-between p-4 border-b rounded-t">
+                            <div className="flex justify-end py-2 pr-4 border-b rounded-t">
                                 <button onClick={e => setShowCreate(false)}>x</button>
                             </div>
-                            <form onSubmit={handleCreate}>
-                                <div className="relative mb-6">
-                                    <label htmlFor="">Chuyên mục</label>
-                                    <input type="text" name="name" className="border-2" required/>
+                            <form onSubmit={createSubmit} className="">
+                                <div className="grid grid-cols-4 pt-3 pr-1">
+                                    <label htmlFor="" className="col-span-1 pl-1">Mục lục</label>
+                                    <input type="text" name="name" className="border-2 col-span-3" required/>
                                 </div>
-                                <div className="relative mb-6">
-                                    <label htmlFor="">Slug</label>
-                                    <input type="text" name="slug" className="border-2" required/>
+                                <div className="grid grid-cols-4 py-3 pr-1">
+                                    <label htmlFor="" className="col-span-1 pl-1">Slug</label>
+                                    <input type="text" name="slug" className="border-2 col-span-3" required/>
                                 </div>
-                                <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
+                                <div className="flex items-center justify-end p-2 border-t border-solid border-slate-200 rounded-b">
                                     <button type="button" className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" onClick={e => setShowCreate(false)}>Hủy</button>
-                                    <button type="submit" className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150">Gửi</button>
+                                    <button type="submit" className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150">Gửi</button>
                                 </div>
                             </form>
                         </div>
@@ -120,22 +120,21 @@ const Categories = () => {
                         <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                             <button onClick={e => setShowUpdate({status: false, slug: ''})} className="cursor-pointer">X</button>
                             <form onSubmit={handleUpdate}>
-                                <div>
+                                <div className="grid grid-cols-4 pt-3 pr-1">
                                     <label htmlFor="">Id</label>
                                     <input type="text" defaultValue={category[0].id} name='id' disabled/>
                                 </div>
-                                <div>
+                                <div className="grid grid-cols-4 pt-3 pr-1">
                                     <label htmlFor="">Name</label>
                                     <input type="text" defaultValue={category[0].name} name='name'/>
                                 </div>
-                                <div>
+                                <div className="grid grid-cols-4 pt-3 pr-1">
                                     <label htmlFor="">Slug</label>
                                     <input type="text" defaultValue={category[0].slug} name='slug'/>
                                 </div>
                                 <div>
                                     <button type='submit'>Send</button>
                                 </div>
-                                <button type="submit">Send</button>
                             </form>
                             
                             <button onClick={e => setShowUpdate({status: false, slug: ''})} className="cursor-pointer">Cencal</button>
@@ -151,9 +150,13 @@ const Categories = () => {
                 <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
                     <div className="relative w-auto my-6 mx-auto max-w-3xl">
                         <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                        
                         <button onClick={e => setShowDelete({status: false, id: ''})} className="cursor-pointer">X</button>
-                        <button onClick={() => handleDelete(showDelete.id)} className="cursor-pointer">OK</button>
-                        <button onClick={e => setShowDelete({status: false, id: ''})} className="cursor-pointer">Cencal</button>
+                        <div className="p-5">
+                            <button onClick={() => handleDelete(showDelete.id)} className="cursor-pointer p-2">OK</button>
+                            <button onClick={e => setShowDelete({status: false, id: ''})} className="cursor-pointer p-2">Cencal</button>
+                        </div>
+                       
                         </div>
                     </div>
                 </div>

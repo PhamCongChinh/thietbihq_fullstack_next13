@@ -1,7 +1,7 @@
 import query from "@/config/dbconfig";
 import { SUCCESS, UNSUCCESS } from "@/helpers/constants";
 import { NextRequest, NextResponse } from "next/server";
-
+import fs from 'fs'
 
 const GET = async (request: NextRequest, {
         params,
@@ -29,7 +29,10 @@ const DELETE = async (request: NextRequest, {
 ) => {
     const slug = params.slug
     try {
+        const [data] = await query(`SELECT image from product WHERE slug = ?`, [slug])
         await query(`DELETE FROM product WHERE slug = ?`,[slug])
+        console.log(data.image)
+        fs.rmSync(`./public/images/products/${data.image}`)
     } catch (error) {
         console.log(error)
         return NextResponse.json(UNSUCCESS)

@@ -5,7 +5,7 @@ import useSWR from "swr"
 
 const Page = () => {
 
-    const {data, error,isLoading} = useSWR(`/api/products`, fetcher)
+    const {data, error, isLoading} = useSWR(`/api/products`, fetcher)
     if(error) return <div>ERROR</div>
     if(isLoading) return <div>IS LOADING</div>
 

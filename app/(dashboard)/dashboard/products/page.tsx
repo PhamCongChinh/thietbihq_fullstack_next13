@@ -102,26 +102,45 @@ const Products = () => {
         e.preventDefault()
         const formData = new FormData()
         formData.append('id', e.target.id.value)
-        //formData.append('id_category', select)
+        formData.append('id_category', e.target.id_category.value)
         formData.append('name', e.target.name.value)
         formData.append('slug', e.target.slug.value)
         formData.append('image', image)
+        formData.append('image_name', showUpdate.data.image)
         formData.append('image_list', e.target.image_list.value)
         formData.append('price', e.target.price.value)
         formData.append('content', e.target.content.value)
         formData.append('discount', e.target.discount.value)
         formData.append('view', e.target.view.value)
-        console.log(e.target.id.value)
-        console.log(e.target.name.value)
-        console.log(e.target.slug.value)
-        console.log(image)
-        console.log(e.target.image_list.value)
-        console.log(e.target.price.value)
-        console.log(e.target.content.value)
-        console.log(e.target.discount.value)
-        console.log(e.target.view.value)
-    }
 
+        console.log("id", e.target.id.value)
+        console.log("id_category", e.target.id_category.value)
+        console.log("name", e.target.name.value)
+        console.log("slug", e.target.slug.value)
+        console.log("image name", showUpdate.data.image)
+        console.log("image", image)
+        console.log("image_list", e.target.image_list.value)
+        console.log("price", e.target.price.value)
+        console.log("content", e.target.content.value)
+        console.log("discount", e.target.discount.value)
+        console.log("view", e.target.view.value)
+
+        return await api.put(`/api/products`, formData, {
+            headers: {"Content-Type": "multipart/form-data"}
+        })
+        .then(res => {
+            if (res.data.status == "0" && res.data.ecode == "00") {
+                toast("Sửa thành công", { hideProgressBar: true, autoClose: 2000, type: 'success' })
+                mutateProducts()
+                setShowUpdate({status: false, data: Category})
+                setSelect('')
+            }else{
+                toast("Sửa không thành công", { hideProgressBar: true, autoClose: 2000, type: 'error' })
+                setShowUpdate({status: false, data: Category})
+                setSelect('')
+            }
+        })
+    }
 
     const deleteSubmit = async (slug: string) => {
         console.log(slug)
@@ -212,13 +231,13 @@ const Products = () => {
                                         <button type="submit" className="mt-2">Send</button>
                                     </div>
                                 </form>
-                                <button className="mt-2" onClick={() => {setShowCreate(false)}}>CENCAL</button>
+                                <button className="mt-2" onClick={() => {setShowCreate(false); setImage(null)}}>CENCAL</button>
                             </div>
                         
                         </div>
                     </div>
                 </div>
-                <div className="opacity-25 fixed inset-0 z-40 bg-black" onClick={e => setShowCreate(false)}></div>
+                <div className="opacity-25 fixed inset-0 z-40 bg-black" onClick={e => {setShowCreate(false); setImage(null)}}></div>
                 </>
             : 
                 <></>
@@ -229,7 +248,7 @@ const Products = () => {
                 <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
                     <div className="relative w-auto my-6 mx-auto max-w-3xl">
                         <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
-                            <button className="mt-2" onClick={() => {setShowUpdate({status: false, data: Category})}}>CENCAL</button>
+                            <button className="mt-2" onClick={() => {setShowUpdate({status: false, data: Category}); setImage(null)}}>CENCAL</button>
                             <hr />
                             <form onSubmit={updateSubmit}>
                                 <div className="grid grid-cols-2">
@@ -239,14 +258,13 @@ const Products = () => {
                                 <div className="grid grid-cols-2">
                                     <label htmlFor="">Id_category</label>
                                     <select name="id_category" value={select} onChange={handleOnChangeCategoryId}>
-                                        <option value={''} >Vui long cho chu chuyen muc</option>
-                                            {categories?.map((item: any) => {
-                                                return(
-                                                    <option value={`${item.id}`} key={item.id}>{item.name}</option>
-                                                )
-                                            })}
+                                        <option value={showUpdate.data.id_category}>{showUpdate.data.id_category} - Chuyên mục hiện tại</option>
+                                        {categories?.map((item: any) => {
+                                            return(
+                                                <option value={`${item.id}`} key={item.id}>{item.name}</option>
+                                            )
+                                        })}
                                     </select>
-                                    <input type="text" defaultValue={showUpdate.data.id_category} name="id_category"/>
                                 </div>
                                 <div className="grid grid-cols-2">
                                     <label htmlFor="">Name</label>
@@ -265,10 +283,10 @@ const Products = () => {
                                 ):(
                                     <span>Select</span>
                                 )}
+                                <div>Image hiện tại</div>
                                 <div>
                                     <Image src={`/images/products/${showUpdate.data.image}`} alt="asd" height={100} width={100}/>
                                 </div>
-
 
                                 <div className="grid grid-cols-2">
                                     <label htmlFor="">Image List</label>
@@ -304,10 +322,10 @@ const Products = () => {
                     <div className="relative w-auto my-6 mx-auto max-w-3xl">
                         <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                             <div className="flex items-start justify-between p-4 border-b rounded-t">
-                                <button onClick={e => setShowDelete({status: false, slug: ''})}>x</button>
+                                <button onClick={() => setShowDelete({status: false, slug: ''})}>x</button>
                             </div>
                             <div>
-                                <button onClick={() => deleteSubmit(showDelete.slug)}>OK</button>
+                                <button onClick={() => deleteSubmit(showDelete.slug)} className="p-6">OK</button>
                             </div>
                         </div>
                     </div>
@@ -318,11 +336,17 @@ const Products = () => {
                 <table>
                     <thead>
                         <tr>
-                            <td>1</td>
-                            <td>2</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
+                            <td>ID</td>
+                            <td>Category</td>
+                            <td>Tên</td>
+                            <td>Slug</td>
+                            <td>Hình ảnh</td>
+                            <td>Danh sách ảnh</td>
+                            <td>Đơn giá</td>
+                            <td>Số lượng</td>
+                            <td>Lượt xem</td>
+                            <td>Ngày tạo</td>
+                            <td>Ngày sửa</td>
                         </tr>
                     </thead>
                     <tbody>
@@ -333,14 +357,13 @@ const Products = () => {
                                     <td>{item.id_category}</td>
                                     <td>{item.name}</td>
                                     <td>{item.slug}</td>
-                                    <td>{item.image}</td>
+                                    <td><Image src={`/images/products/${item.image}`} alt="asd" height={100} width={100}/></td>
                                     <td>{item.image_list}</td>
                                     <td>{item.price}</td>
-                                    <td>{item.content}</td>
                                     <td>{item.discount}</td>
                                     <td>{item.view}</td>
-                                    <td>{item.createAt}</td>
-                                    <td>{item.updateAt}</td>
+                                    <td>{item.createdAt}</td>
+                                    <td>{item.updatedAt}</td>
                                     <td><button onClick={() => setShowUpdate({status: true, data: {
                                         id: item.id,
                                         id_category: item.id_category,
