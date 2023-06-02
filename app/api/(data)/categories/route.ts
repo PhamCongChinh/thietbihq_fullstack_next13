@@ -1,11 +1,36 @@
 import query from "@/config/dbconfig"
 import { SUCCESS, UNSUCCESS } from "@/helpers/constants"
-import { IMessage } from "@/libs/interface"
 import { NextRequest, NextResponse } from "next/server"
 
-let message: IMessage
-
+// Get All
 const GET = async (request: NextRequest) => {
+    let data = []
+    try {
+        data = await query(`SELECT * FROM category`, [])
+    } catch (error) {
+        console.log(error)
+        return NextResponse.json(UNSUCCESS)
+    }
+    return NextResponse.json(data)
+}
+
+// Create
+const POST = async (request: NextRequest) => {
+    const res = await request.json()
+    try {
+        await query(`INSERT INTO category (id, name, slug) VALUES (?, ?, ?)`, [null, res.name, res.slug])
+    } catch (error) {
+        return NextResponse.json(UNSUCCESS)
+    }
+    return NextResponse.json(SUCCESS)
+}
+export { GET, POST }
+
+
+
+
+
+
     /*const { searchParams } = new URL(request.url)
     if(searchParams.get('page')){
         const page = searchParams.get('page')
@@ -30,20 +55,3 @@ const GET = async (request: NextRequest) => {
         const data = await query(`SELECT * FROM category`, [])
         return NextResponse.json(data)
     }*/
-
-    const data = await query(`SELECT * FROM category`, [])
-    return NextResponse.json(data)
-}
-
-const POST = async (request: NextRequest) => {
-    const res = await request.json()
-    console.log(res)
-    try {
-        await query(`INSERT INTO category (id, name, slug) VALUES (?, ?, ?)`, [null, res.name, res.slug])
-    } catch (error) {
-        return NextResponse.json(UNSUCCESS)
-    }
-    return NextResponse.json(SUCCESS)
-}
-
-export { GET, POST }

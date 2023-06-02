@@ -9,16 +9,13 @@ const GET = async (request: NextRequest, {
     }
 ) => {
     const slug = params.slug
-    const [response] = await query(`SELECT * FROM category WHERE slug = ?`, [slug])
-    //let response
-    /*switch (slug) {
-        case "getCategories":
-            response = await query(`SELECT id, name, slug FROM category`, [])
-            break;
-        default:
-            response = await query(`SELECT * FROM category WHERE slug = ? OR id = ?`, [slug, slug])
-    }*/
-    return NextResponse.json(response)
+    let data = []
+    try {
+        data = await query(`SELECT * FROM category WHERE slug = ?`, [slug])
+    } catch (error) {
+        console.log(error)
+    }
+    return NextResponse.json(data)
 }
 
 const PUT = async (request: NextRequest) => {
@@ -38,7 +35,6 @@ const DELETE = async (request: NextRequest, {
         params: {slug: string}
 }) => {
     const slug = params.slug
-    console.log("Delete:", slug)
     try {
         await query(`DELETE FROM category WHERE id = ?`, [slug])
     } catch (error) {
@@ -49,3 +45,16 @@ const DELETE = async (request: NextRequest, {
 }
 
 export { GET, PUT, DELETE }
+
+
+
+
+
+////let response
+    /*switch (slug) {
+        case "getCategories":
+            response = await query(`SELECT id, name, slug FROM category`, [])
+            break;
+        default:
+            response = await query(`SELECT * FROM category WHERE slug = ? OR id = ?`, [slug, slug])
+    }*/

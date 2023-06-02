@@ -122,15 +122,15 @@ const Categories = () => {
                             <form onSubmit={handleUpdate}>
                                 <div>
                                     <label htmlFor="">Id</label>
-                                    <input type="text" defaultValue={category.id} name='id' disabled/>
+                                    <input type="text" defaultValue={category[0].id} name='id' disabled/>
                                 </div>
                                 <div>
                                     <label htmlFor="">Name</label>
-                                    <input type="text" defaultValue={category.name} name='name'/>
+                                    <input type="text" defaultValue={category[0].name} name='name'/>
                                 </div>
                                 <div>
                                     <label htmlFor="">Slug</label>
-                                    <input type="text" defaultValue={category.slug} name='slug'/>
+                                    <input type="text" defaultValue={category[0].slug} name='slug'/>
                                 </div>
                                 <div>
                                     <button type='submit'>Send</button>
