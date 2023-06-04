@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 17, 2023 at 05:53 PM
+-- Generation Time: Jun 04, 2023 at 08:27 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -41,7 +41,20 @@ INSERT INTO `category` (`id`, `name`, `slug`) VALUES
 (55, 'Nội thất hòa phát', 'noi-that-hoa-phat1'),
 (59, 'Pham Cong Chinh', '1231241'),
 (61, '12314', '312312312313'),
-(63, 'Pham Chinh1', 'pham-chinh1');
+(63, 'Pham Chinh1', 'pham-chinh1'),
+(64, 'anh dep', 'noi-that-hoa-phat'),
+(65, 'chinh', '1231241'),
+(66, 'qưeasd', 'qưe2'),
+(67, 'anh dep', 'ádqqwe'),
+(68, '13', '123'),
+(69, '123', '4123'),
+(70, '123', '4123123'),
+(71, '123', '444444'),
+(72, '3123', '4123'),
+(73, 'Nội thất hòa phát 1', 'noi-that-hoa-phat'),
+(74, 'anh-dep', 'cuc-dep'),
+(76, 'Phạm Công Chính', 'pham-cong-chinh'),
+(78, 'Thiết bị công nghiệp', 'thiet-bi-cong-nghiep');
 
 -- --------------------------------------------------------
 
@@ -54,24 +67,24 @@ CREATE TABLE `product` (
   `id_category` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `slug` varchar(255) DEFAULT NULL,
-  `image_link` varchar(255) DEFAULT NULL,
-  `image_list` varchar(255) DEFAULT NULL,
-  `price` float DEFAULT NULL,
+  `image` varchar(255) DEFAULT NULL,
+  `image_list` text DEFAULT NULL,
+  `price` decimal(10,0) DEFAULT NULL,
   `content` text DEFAULT NULL,
   `discount` int(11) DEFAULT NULL,
-  `created` timestamp NULL DEFAULT current_timestamp(),
-  `updated` datetime NOT NULL DEFAULT current_timestamp(),
-  `view` int(255) DEFAULT NULL,
-  `status` varchar(255) DEFAULT NULL
+  `createdAt` varchar(255) DEFAULT current_timestamp(),
+  `updatedAt` varchar(255) DEFAULT current_timestamp(),
+  `view` int(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `product`
 --
 
-INSERT INTO `product` (`id`, `id_category`, `name`, `slug`, `image_link`, `image_list`, `price`, `content`, `discount`, `created`, `updated`, `view`, `status`) VALUES
-(7, 55, 'late', 'cuc-dep', '741a911dac859353e75333b01.jpg', 'dagasd', 111, 'ádasdasd', 123, '2022-10-21 17:00:00', '2023-05-17 22:51:39', NULL, '12'),
-(8, 55, 'Nội thất hòa phát', 'noi-that-hoa-phat', '741a911dac859353e75333b02.jpg', 'dagasd', 11, 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 12, '2022-10-19 17:00:00', '2023-05-17 22:51:39', NULL, '12');
+INSERT INTO `product` (`id`, `id_category`, `name`, `slug`, `image`, `image_list`, `price`, `content`, `discount`, `createdAt`, `updatedAt`, `view`) VALUES
+(7, 55, 'Ghế massage', 'ghe-massage', 'anh16.jpg', 'dagasd', '111', 'ádasdasd', 123, '2022-10-22 00:00:00', '6/3/2023, 1:00:50 AM', 0),
+(8, 55, 'Nội thất hòa phát', 'noi-that-hoa-phat', 'anh14.jpg', 'dagasd', '11', 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 12, '2022-10-20 00:00:00', '6/3/2023, 12:59:41 AM', 0),
+(9, 63, 'Ghế máy tính', 'ghe-may-tinh', 'xe-day-bt-300.jpg', '111', '99999', '111111111', 1111, '2023-05-26 21:53:25', '6/3/2023, 12:48:57 AM', 11);
 
 -- --------------------------------------------------------
 
@@ -127,13 +140,13 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=79;
 
 --
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `user`
