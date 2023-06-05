@@ -8,21 +8,19 @@ export interface BreadCrumbState {
 }
 
 const initialState: BreadCrumbState = {
-    value: '',
+    value: '1asd',
 }
 
 export const breadcrumbSlice = createSlice({
     name: 'breadcrumb',
     initialState,
     reducers: {
-        success: (state) => {
-            state.value = "Thanh cong Redux"
-        },
-        unsucces: (state) => {
-            state.value = "That bai Redux"
+        breadcrumb: (state) => {
+            state.value = 'Thanh cong Redux'
         }
+        
     }
 })
 
-export const { success, unsucces} = breadcrumbSlice.actions
+export const { breadcrumb } = breadcrumbSlice.actions
 export default breadcrumbSlice.reducer

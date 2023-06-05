@@ -4,19 +4,25 @@ import Link from "next/link"
 import Image from "next/image"
 import Logo from '../../public/images/logo.png'
 import { useParams, usePathname, useRouter } from "next/navigation"
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { RootState } from "@/redux/store"
 
 const Navbar = () => {
 
-    const pathname = usePathname()
-
     const [menubar, setMenubar] = useState(false)
+
+    const breadcrumb = useSelector((state: RootState) => state.breadcrumb.value)
+    console.log(breadcrumb)
+    const total = useSelector((state: RootState) => state.cart.totalQuantity)
+    console.log(total)
+
 
     return (
         <nav className="bg-white">
             <div className="fixed bg-gray-100 w-full top-0 left-0 z-20 border-b">
                 <div className="container flex flex-wrap items-center justify-between mx-auto p-2 w-full">
-                    <div className="hidden md:block">
+                    <div className="hidden md:block" >
                         <Link href={`/`}>HQ</Link>
                     </div>
                     <div className="block md:hidden">
@@ -26,7 +32,7 @@ const Navbar = () => {
                             </svg>
                         </div>
                     </div>
-                    <div><Link href={`/gio-hang`}>Giỏ hàng</Link></div>
+                    <div>{total} - <Link href={`/gio-hang`}>Giỏ hàng</Link></div>
                 </div>
             </div>
             <div className="container mx-auto mt-8 py-2 md:grid grid-cols-5">
@@ -54,7 +60,7 @@ const Navbar = () => {
             </div>
             <div className="bg-slate-500">
                 <div className="container mx-auto">
-                    {pathname}
+                    {breadcrumb}
                 </div>
             </div>
 

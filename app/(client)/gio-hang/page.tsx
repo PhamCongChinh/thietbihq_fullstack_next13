@@ -7,15 +7,15 @@ import { useDispatch, useSelector } from "react-redux"
 
 const Shopping = () => {
     const carts = useSelector((state: RootState) => state.cart.items)
-    const cartsCount = useSelector((state: RootState) => state.cart.totalQuantity)
-    const dispatch = useDispatch()
-    const [data, setData] = useState({})
+    //const cartsCount = useSelector((state: RootState) => state.cart.totalQuantity)
+    //const dispatch = useDispatch()
+    const [cart, setCart] = useState({})
     useEffect(() => {
-        setData(carts)
-    },[])
+        setCart(carts)
+    },[carts])
 
     return (
-        <Cart data={data}/>
+        <Cart data={cart}/>
     )
 }
 

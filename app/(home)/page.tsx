@@ -7,7 +7,8 @@ import mabu from '../../public/images/mabu.jpeg'
 import useSWR from 'swr'
 import { fetcher } from '@/helpers/constants'
 import Products from '../(templates)/Products'
-import { useSearchParams } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
+import { useDispatch } from 'react-redux'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -46,6 +47,7 @@ const Home = () => {
     const { data:productsData, error:productsError, isLoading:productsIsLoading } = useSWR(`/api/productsPerPage?page=${page}`, fetcher)
     if (productsError || productsCountError) return <div>Error</div>
     if (productsIsLoading || productsCountIsLoading) return <div>Loading...</div>
+
     return (
         <div>
             <Products data={productsData}/>

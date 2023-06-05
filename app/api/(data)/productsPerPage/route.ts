@@ -10,7 +10,7 @@ const GET = async (request: NextRequest) => {
         const itemsPerPage = 5
         const pagesVisited = itemsPerPage * Number(page)
         try {
-            products = await query(`SELECT * FROM product LIMIT ?, ?`, [String(pagesVisited), String(itemsPerPage)])
+            products = await query(`SELECT p.*, c.slug as c_slug, c.name as c_name FROM product p, category c LIMIT ?, ?`, [String(pagesVisited), String(itemsPerPage)])
         } catch (error) {
             console.log(error)
         }

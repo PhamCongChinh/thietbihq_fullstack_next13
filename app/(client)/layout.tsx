@@ -23,7 +23,6 @@ export default function ClientLayout({
                 <div className="hidden md:block"><SidebarRight/></div>
             </div>
             <Footer/>
-            
         </section>
     )
 }
