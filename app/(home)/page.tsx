@@ -43,7 +43,6 @@ const Home = () => {
         return content
     }
 
-
     const { data:productsData, error:productsError, isLoading:productsIsLoading } = useSWR(`/api/productsPerPage?page=${page}`, fetcher)
     if (productsError || productsCountError) return <div>Error</div>
     if (productsIsLoading || productsCountIsLoading) return <div>Loading...</div>

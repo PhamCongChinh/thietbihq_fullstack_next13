@@ -7,5 +7,4 @@ const SidebarRight = () => {
         </div>
     )
 }
-
 export default SidebarRight

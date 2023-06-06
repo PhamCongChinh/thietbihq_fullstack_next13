@@ -1,16 +1,21 @@
-'use client'
+import { use } from "react"
+import SidebarItems from "../includes/SidebarItems"
 
-import Sidebar from "@/app/(templates)/Sidebar"
-import { fetcher } from "@/helpers/constants"
-import useSWR from "swr"
+async function getData() {
+    const res = await fetch(`http:localhost:3000/api/categories`)
+    return res.json()
+}
 
-const Page = () => {
-    const {data, error, isLoading} = useSWR(`/api/categories`, fetcher)
-    if (error) {return <div>Error</div>}
-    if (isLoading) {return <div>Loading...</div>}
+export default function Sidebar (){
+   
+    const data = use(getData())
     return(
-        <Sidebar data={data}/>
+        <SidebarItems data={data}/>
     )
 }
 
-export default Page
+//export default Sidebar
+
+ /*const {data, error, isLoading} = useSWR(`/api/categories`, fetcher)
+    if (error) {return <div>Error</div>}
+    if (isLoading) {return <div>Loading...</div>}*/

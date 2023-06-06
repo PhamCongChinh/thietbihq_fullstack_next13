@@ -1,23 +1,10 @@
-'use client'
-
 import Link from "next/link"
 import Image from "next/image"
 import Logo from '../../public/images/logo.png'
-import { useParams, usePathname, useRouter } from "next/navigation"
-import { useEffect, useState } from "react"
-import { useDispatch, useSelector } from "react-redux"
-import { RootState } from "@/redux/store"
+import MenuBar from "../templates/MenuBar"
+import ShoppingCart from "../templates/ShopingCart"
 
 const Navbar = () => {
-
-    const [menubar, setMenubar] = useState(false)
-
-    const breadcrumb = useSelector((state: RootState) => state.breadcrumb.value)
-    console.log(breadcrumb)
-    const total = useSelector((state: RootState) => state.cart.totalQuantity)
-    console.log(total)
-
-
     return (
         <nav className="bg-white">
             <div className="fixed bg-gray-100 w-full top-0 left-0 z-20 border-b">
@@ -26,18 +13,14 @@ const Navbar = () => {
                         <Link href={`/`}>HQ</Link>
                     </div>
                     <div className="block md:hidden">
-                        <div onClick={() => setMenubar(!menubar)}>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-                            </svg>
-                        </div>
+                        <MenuBar/>
                     </div>
-                    <div>{total} - <Link href={`/gio-hang`}>Giỏ hàng</Link></div>
+                    <div> <ShoppingCart/> - <Link href={`/gio-hang`}>Giỏ hàng</Link></div>
                 </div>
             </div>
             <div className="container mx-auto mt-8 py-2 md:grid grid-cols-5">
                 <div className="flex justify-center items-center">
-                    <Image src={Logo} alt={"Logo"} width={120} height={120} priority />
+                    <Image src={Logo} alt={"Logo"} width={30} height={30} priority />
                 </div>
                 <div className="relative col-span-3">
                     <form action="">
@@ -60,29 +43,12 @@ const Navbar = () => {
             </div>
             <div className="bg-slate-500">
                 <div className="container mx-auto">
-                    {breadcrumb}
+                    {1}
                 </div>
             </div>
-
-            {menubar ? (
-                <div className="fixed top-0 left-0 w-60 h-full z-10 bg-white md:hidden">
-                    <ul className="mt-12">
-                        <li>ABC</li>
-                        <li>ABC</li>
-                        <li>ABC</li>
-                        <li>ABC</li>
-                        <li>ABC</li>
-                        <li>ABC</li>
-                        <li>ABC</li>
-                        <li>ABC</li>
-                        <li>ABC</li>
-                        <li>ABC</li>
-                    </ul>
-                </div>
-            ):(<></>)}
-
         </nav>
     )
 }
-
 export default Navbar
+
+//logo 120

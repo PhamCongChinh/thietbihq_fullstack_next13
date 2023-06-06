@@ -1,12 +1,15 @@
-const Cart = (props: any) => {
-    const cart = props.data
-    if(!cart) return <div>Loi</div>
+'use client'
+
+const Cart = () => {
+    const handleClick = () => {
+        alert("Client")
+    }
     return (
         <div>
-            {cart ? (<div >
-                asd
+            <button onClick={handleClick}>Day la nut button</button>
+            <div>
+                client
             </div>
-            ):(<></>)}
         </div>
     )
 }
