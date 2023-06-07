@@ -29,10 +29,10 @@ const Page = async ({
     //const a = slug.split(/[/]/)
     return (
         <>
-            {slug.length === 1 ? (
+            {productsByCategory ? (
                 <Products data={productsByCategory}/>
             ) : null}
-            {slug.length === 2 ? (
+            {product ? (
                 <Product data={product}/>
             ) : null}
         </>

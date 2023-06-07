@@ -1,13 +1,14 @@
+'use client'
 import { addToCart } from "@/redux/features/cartSlice"
-import { useDispatch } from "react-redux"
+import { useAppDispatch } from "@/redux/hook"
 
 const AddToCart = (props: any) => {
-    const data = props.data
-    const dispatch = useDispatch()
+    const id = props.data
+    const dispatch = useAppDispatch()
     return (
         <div className="">
             <button className="w-full border-2" onClick={
-                () => dispatch(addToCart(data))
+                () => dispatch(addToCart(id))
             }>ADD CAST</button>
             <button className="w-full border-2">BUY</button>
         </div>

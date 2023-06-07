@@ -1,10 +1,12 @@
 import Image from "next/image"
+import AddToCart from "../templates/AddToCart"
 
-const Product = (data : any) => {
-    console.log("data", data.data)
+const Product = (props : any) => {
+    const data = props.data
+    console.log("data", data)
     return (
         <div>
-            {data.data.map((item: any) => (
+            {data.map((item: any) => (
                 <div key={item.id} className="grid grid-cols-1 gap-4 md:grid-cols-2">
                 <div className="bg-slate-700">
                     <Image 
@@ -18,7 +20,7 @@ const Product = (data : any) => {
                     <div>{item.name}</div>
                     <div>{item.image}</div>
                     <div className="mt-6 flex">
-                        
+                        <AddToCart data={item.id}/>
                     </div>
                 </div>
             </div>

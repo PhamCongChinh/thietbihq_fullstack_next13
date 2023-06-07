@@ -1,8 +1,9 @@
 'use client'
 
 import { createSlice } from "@reduxjs/toolkit"
+import { RootState } from "../store"
 
-type Cart = {
+/*type Cart = {
     items: {
         id: string,
         name: string,
@@ -12,12 +13,16 @@ type Cart = {
     }[],
     totalQuantity: number,
     totalPrice: number
+}*/
+type Cart = {
+    items: {
+        id: string,
+        quantity: number,
+    }[]
 }
 
 const initialState : Cart = {
-    items : typeof window !== 'undefined' && JSON.parse(localStorage.getItem("cart") as string) || [],
-    totalQuantity : typeof window !== 'undefined' && JSON.parse(localStorage.getItem("total") as string) || 0,
-    totalPrice : 0
+    items: typeof window !== 'undefined' && JSON.parse(localStorage.getItem("cart") as string) || [],
 }
 
 const cartSlice = createSlice({
@@ -26,16 +31,14 @@ const cartSlice = createSlice({
     reducers:{
         addToCart(state, actions){
             const newItem = actions.payload
-            const existingItem = state.items.find((item) => item.id === newItem.id)
-            state.totalQuantity++
+            const existingItem = state.items.find((item) => item.id === newItem)
             if (existingItem) {
                 existingItem.quantity++
             }else{
-                const product = {...actions.payload, quantity: 1}
-                state.items.push(product)
+                const cartItems = { id: newItem, quantity: 1}
+                state.items.push(cartItems)
             }
             localStorage.setItem("cart", JSON.stringify(state.items))
-            localStorage.setItem("total", JSON.stringify(state.totalQuantity))
         },
         incrementQuantity(state, actions){
 
@@ -46,4 +49,5 @@ const cartSlice = createSlice({
 export const {
     addToCart
 } = cartSlice.actions
+export const items = (state: RootState) => state.cart.items
 export default cartSlice.reducer
