@@ -1,23 +1,31 @@
-'use client'
-import Image from 'next/image'
+//'use client'
+
 import { Inter } from 'next/font/google'
 import Link from 'next/link'
 
-import mabu from '../../public/images/mabu.jpeg'
 import useSWR from 'swr'
 import { fetcher } from '@/helpers/constants'
-import Products from '../(templates)/Products'
+//import Products from '../(templates)/Products'
+import Products from '@/components/includes/Products'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { useDispatch } from 'react-redux'
+import Pagination from '@/components/templates/Pagination'
 
 const inter = Inter({ subsets: ['latin'] })
 
-const Home = () => {
+async function getProducts() {
+    const res = await fetch(`http://localhost:3000/api/products`)
+    return res.json()
+} 
 
-    const searchParams = useSearchParams()
-    const search = searchParams.get("page")
 
-    let page = 0
+const Home = async () => {
+    const data = await getProducts()
+    console.log(data)
+    //Client
+    //const searchParams = useSearchParams()
+    //const search = searchParams.get("page")
+
+    /*let page = 0
     if (search) {
         if (Number(search) >= 0) {
             page = Number(search)
@@ -28,9 +36,9 @@ const Home = () => {
     }
 
     let prev = 0
-    let next = 0
+    let next = 0*/
 
-    const { data:productsCount, error:productsCountError, isLoading: productsCountIsLoading} = useSWR(`/api/productsCount`, fetcher)
+    /*const { data:productsCount, error:productsCountError, isLoading: productsCountIsLoading} = useSWR(`/api/productsCount`, fetcher)
     const pagination = (count: number) => {
         let content = []
         for(let i=1;i<=count;i++){
@@ -47,12 +55,23 @@ const Home = () => {
     if (productsError || productsCountError) return <div>Error</div>
     if (productsIsLoading || productsCountIsLoading) return <div>Loading...</div>
 
+*/
+    const pagi = {
+        count: 5,
+        page: 1
+    }
     return (
         <div>
-            <Products data={productsData}/>
+            <Products data={data}/>
+
             <div className='mt-5'>
                 <ul className='flex'>
-                    {pagination(productsCount.count)}
+                    asd
+                    
+                </ul>
+                <ul className='flex'>
+                    123
+                    <Pagination data={pagi}/>
                 </ul>
             </div>
         </div>
@@ -60,5 +79,6 @@ const Home = () => {
 }
 
 export default Home
-
+//<Products data={productsData}/>
 //className="border-2 px-3 py-1 cursor-pointer"
+//{pagination(productsCount.count)}
