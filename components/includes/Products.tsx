@@ -6,20 +6,21 @@ import useSWR from "swr"
 import { fetcher } from "@/helpers/constants"
 import { useSearchParams } from "next/navigation"
 
-const Products = (slug: any) => {
-    const searchParams = useSearchParams()
+const Products = (data: any) => {
+    /*const searchParams = useSearchParams()
     const search = searchParams.get("page")
     console.log("search seasd", search)
     console.log("slug", slug.data)
     const {data, error, isLoading} = useSWR(`/api/getProductsByCategory/${slug.data}`, fetcher)
-    console.log("data in list", data)
+    console.log("data in list", data)*/
+    
     return (
         <div className="grid grid-cols-2 gap-1 md:grid-cols-3">
-            {data?.map((item: any) => {
+            {data.data?.map((item: any) => {
                 return (
                     <div key={item.id} className="border-2">
                         <div className="w-full">
-                            <Link href={`/${item.c_slug}/${item.slug}`}>
+                            <Link href={`/${item.slug_category}/${item.slug}`}>
                                 <Image src={`/images/products/${item.image}`} alt={`${item.name}`} width={200} height={200} />
                             </Link>
                         </div>

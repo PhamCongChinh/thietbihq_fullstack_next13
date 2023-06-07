@@ -1,24 +1,36 @@
-'use client'
-
-//import Product from "@/app/(templates)/Product"
-//import Products from "@/app/(templates)/Products"
-
 import Products from "@/components/includes/Products"
 import Product from "@/components/includes/Product"
-import { fetcher } from "@/helpers/constants"
-import { useParams } from "next/navigation"
-import useSWR from "swr"
 
-const Page = () => {
-    const params = useParams()
-    const slug = params.slug.split(/[/]/)
+async function getProductsByCategory(slug: string) {
+    const res = await fetch(`http://localhost:3000/api/getProductsByCategory/${slug}`)
+    return res.json()
+}
+async function getProduct(slug: string) {
+    const res = await fetch(`http://localhost:3000/api/products/${slug}`)
+    return res.json()
+}
+
+const Page = async ({
+    params: { slug },
+}:{
+    params: { slug: string}
+}) => {
+    console.log("slug", slug)
+    let productsByCategory = []
+    let product = []
+    if (slug.length === 1) {
+        productsByCategory = await getProductsByCategory(slug[0])
+    }else{
+        product = await getProduct(slug[1])
+    }
+    //const a = slug.split(/[/]/)
     return (
         <>
             {slug.length === 1 ? (
-                <Products data={slug[0]}/>
+                <Products data={productsByCategory}/>
             ) : null}
             {slug.length === 2 ? (
-                <Product data={slug[1]}/>
+                <Product data={product}/>
             ) : null}
         </>
     )
@@ -26,6 +38,12 @@ const Page = () => {
 export default Page
 
 /**
+ *   {slug.length === 1 ? (
+                <Products data={slug[0]}/>
+            ) : null}
+            {slug.length === 2 ? (
+                <Product data={slug[1]}/>
+            ) : null}
  * <div>
                 {data1?(
                     <Products data={data1}/>

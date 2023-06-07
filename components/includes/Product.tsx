@@ -1,18 +1,18 @@
-'use client'
+//'use client'
 
 import { fetcher } from "@/helpers/constants"
 import Image from "next/image"
 import useSWR from "swr"
 //import AddToCart from "./AddToCart"
 
-const Product = (slug : any) => {
-    const {data, error, isLoading} = useSWR(`/api/products/${slug.data}`, fetcher)
-    console.log(slug)
-    console.log("data", data)
+const Product = (data : any) => {
+    //const {data, error, isLoading} = useSWR(`/api/products/${slug.data}`, fetcher)
+    //console.log(slug)
+    console.log("data", data.data)
     return (
         <div>
-            {/** 
-            {data.map((item: any) => (
+            
+            {data.data.map((item: any) => (
                 <div key={item.id} className="grid grid-cols-1 gap-4 md:grid-cols-2">
                 <div className="bg-slate-700">
                     <Image 
@@ -30,7 +30,7 @@ const Product = (slug : any) => {
                     </div>
                 </div>
             </div>
-            ))}*/}
+            ))}
         </div>
     )
 }

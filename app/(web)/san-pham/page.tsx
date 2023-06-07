@@ -1,15 +1,22 @@
-'use client'
+//'use client'
 
-import Products from "@/app/(templates)/Products"
+//import Products from "@/app/(templates)/Products"
+import Products from "@/components/includes/Products"
 import { fetcher } from "@/helpers/constants"
 import useSWR from "swr"
 
-const Page = () => {
+async function getProducts() {
+    const res = await fetch(`http://localhost:3000/api/products`)
+    return res.json()
+}
 
-    const {data, error, isLoading} = useSWR(`/api/products`, fetcher)
-    if(error) return <div>ERROR</div>
-    if(isLoading) return <div>Dang tai...</div>
+const SanPham = async () => {
 
+    //const {data, error, isLoading} = useSWR(`/api/products`, fetcher)
+    //if(error) return <div>ERROR</div>
+    //if(isLoading) return <div>Dang tai...</div>
+    const data = await getProducts()
+    console.log(data)
     return (
         <>
             <Products data={data}/>
@@ -17,8 +24,8 @@ const Page = () => {
     )
 }
 
-export default Page
-
+export default SanPham
+//<Products data={data}/>
 /**{data?.map((item: any) => {
                 return (
                     <div key={item.id}>{item.name}</div>
