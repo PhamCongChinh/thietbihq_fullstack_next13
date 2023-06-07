@@ -2,7 +2,6 @@ import Footer from "@/components/layouts/footer"
 import Navbar from "@/components/layouts/navbar"
 import SidebarLayout from "@/components/layouts/sidebar"
 import SidebarRight from "@/components/layouts/sidebar-right"
-import Link from "next/link"
 
 export const metadata = {
     title: 'Thiết bị HQ',

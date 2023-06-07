@@ -2,9 +2,6 @@
 
 import Link from "next/link"
 import Image from "next/image"
-import useSWR from "swr"
-import { fetcher } from "@/helpers/constants"
-import { useSearchParams } from "next/navigation"
 
 const Products = (data: any) => {
     /*const searchParams = useSearchParams()
@@ -13,7 +10,7 @@ const Products = (data: any) => {
     console.log("slug", slug.data)
     const {data, error, isLoading} = useSWR(`/api/getProductsByCategory/${slug.data}`, fetcher)
     console.log("data in list", data)*/
-    
+    console.log(data.data)
     return (
         <div className="grid grid-cols-2 gap-1 md:grid-cols-3">
             {data.data?.map((item: any) => {

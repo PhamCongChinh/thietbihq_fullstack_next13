@@ -3,11 +3,7 @@
 import { Inter } from 'next/font/google'
 import Link from 'next/link'
 
-import useSWR from 'swr'
-import { fetcher } from '@/helpers/constants'
-//import Products from '../(templates)/Products'
 import Products from '@/components/includes/Products'
-import { useRouter, useSearchParams } from 'next/navigation'
 import Pagination from '@/components/templates/Pagination'
 
 const inter = Inter({ subsets: ['latin'] })
