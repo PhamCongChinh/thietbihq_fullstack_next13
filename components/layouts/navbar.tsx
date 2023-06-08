@@ -2,7 +2,7 @@ import Link from "next/link"
 import Image from "next/image"
 import Logo from '../../public/images/logo.png'
 import MenuBar from "../templates/MenuBar"
-import ShoppingCart from "../templates/ShopingCart"
+import ItemsCount from "../templates/ItemsCount"
 
 const Navbar = () => {
     return (
@@ -15,7 +15,7 @@ const Navbar = () => {
                     <div className="block md:hidden">
                         <MenuBar/>
                     </div>
-                    <div> <ShoppingCart/> - <Link href={`/gio-hang`}>Giỏ hàng</Link></div>
+                    <div> <ItemsCount/> - <Link href={`/gio-hang`}>Giỏ hàng</Link></div>
                 </div>
             </div>
             <div className="container mx-auto mt-8 py-2 md:grid grid-cols-5">

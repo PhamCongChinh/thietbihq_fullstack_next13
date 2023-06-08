@@ -10,12 +10,13 @@ const GET = async (request: NextRequest, {
     }
 ) => {
     const slug = params.slug
+
     let response
-    switch (slug) {
-        case 'unknown':
-            break;
-        default:
-            response = await query(`SELECT * FROM product WHERE slug = ?`, [slug])
+    const id = Number(slug)
+    if (id > 0) {
+        response = await query(`SELECT * FROM product WHERE id = ?`, [String(id)])
+    }else{
+        response = await query(`SELECT * FROM product WHERE slug = ?`, [slug])
     }
 
     return NextResponse.json(response)

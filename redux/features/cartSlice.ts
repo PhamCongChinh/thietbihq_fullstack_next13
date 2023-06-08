@@ -3,26 +3,17 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { RootState } from "../store"
 
-/*type Cart = {
-    items: {
-        id: string,
-        name: string,
-        price: number,
-        quantity: number,
-        totalPrice: number
-    }[],
-    totalQuantity: number,
-    totalPrice: number
-}*/
-type Cart = {
-    items: {
-        id: string,
-        quantity: number,
-    }[]
-}
+let initialState = []
 
-const initialState : Cart = {
-    items: typeof window !== 'undefined' && JSON.parse(localStorage.getItem("cart") as string) || [],
+if (typeof window !== 'undefined' && localStorage.getItem("cart")) {
+    try {
+        const data = localStorage.getItem("cart")
+        initialState = JSON.parse(data as string)
+    } catch (error) {
+        initialState = []
+    }
+}else{
+    initialState = []
 }
 
 const cartSlice = createSlice({
@@ -30,24 +21,33 @@ const cartSlice = createSlice({
     initialState,
     reducers:{
         addToCart(state, actions){
-            const newItem = actions.payload
-            const existingItem = state.items.find((item) => item.id === newItem)
-            if (existingItem) {
-                existingItem.quantity++
-            }else{
-                const cartItems = { id: newItem, quantity: 1}
-                state.items.push(cartItems)
+            const idNewItem = actions.payload
+            let cartItems = {}
+            try {
+                const existingItem = state.find((item: any) => item.id === idNewItem)
+                if (existingItem) {
+                    existingItem.quantity++
+                }else{
+                    cartItems = { id: idNewItem, quantity: 1}
+                    state.push(cartItems)
+                }
+            } catch (error) {
+                cartItems = { id: idNewItem, quantity: 1}
+                initialState = []
+                state.push(cartItems)
             }
-            localStorage.setItem("cart", JSON.stringify(state.items))
+            localStorage.setItem("cart", JSON.stringify(state))
         },
         incrementQuantity(state, actions){
-
+            const existingItem = state.find((item: any) => item.id === actions.payload)
+            existingItem.quantity++
+            //localStorage.setItem("cart", JSON.stringify(state))
         }
     }
 })
 
 export const {
-    addToCart
+    addToCart, incrementQuantity
 } = cartSlice.actions
 export const items = (state: RootState) => state.cart.items
 export default cartSlice.reducer

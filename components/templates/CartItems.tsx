@@ -1,8 +1,26 @@
 'use client'
-const CartItems = (props:any) => {
-    console.log(props.data)
+
+import { useAppDispatch, useAppSelector } from "@/redux/hook"
+import { useEffect, useState } from "react"
+import CartItem from "./CartItem"
+
+const CartItems = () => {
+    const cart = useAppSelector((state) => state.cart)
+    const [cartItems, setCartItems] = useState([{id:0,quantity:0}])
+    useEffect(() => {
+        return setCartItems(cart)
+    },[cart])
+
+    console.log(cartItems)
+    
     return(
-        <div>asd</div>
+        <ul>
+            {cartItems.map((item) => (
+                <li key={item.id}>
+                    <CartItem data={item.id}/>
+                </li>
+            ))}
+        </ul>
     )
 }
 export default CartItems
