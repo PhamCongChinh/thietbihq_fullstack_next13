@@ -1,4 +1,5 @@
 import Products from "@/components/includes/Products"
+import Breadcrumb from "@/components/templates/Breadcrumb"
 import { Metadata } from 'next'
  
 export const metadata: Metadata = {
@@ -14,7 +15,12 @@ async function getProducts() {
 const Page = async () => {
     const data = await getProducts()
     return (
+        <>
+        <div className="bg-slate-100">
+            <Breadcrumb data={'Sản phẩm'}/>
+        </div>
         <Products data={data}/>
+        </>
     )
 }
 

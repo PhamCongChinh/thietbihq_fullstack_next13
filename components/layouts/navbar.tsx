@@ -41,11 +41,6 @@ const Navbar = () => {
                     </ul>
                 </div>
             </div>
-            <div className="bg-slate-500">
-                <div className="container mx-auto">
-                    {1}
-                </div>
-            </div>
         </nav>
     )
 }

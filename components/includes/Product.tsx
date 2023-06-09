@@ -30,11 +30,3 @@ const Product = (props : any) => {
 }
 
 export default Product
-
-/**
- * <AddToCart data={{
-                            id: item.id,
-                            name: item.name,
-                            slug: item.slug
-                        }}/>
- */

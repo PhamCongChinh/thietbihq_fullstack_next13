@@ -3,13 +3,15 @@ import Product from "@/components/includes/Product"
 import { Metadata } from "next"
 
 type Props = {
-    params: { id: string }
-    searchParams: { [key: string]: string | string[] | undefined }
+    params: { slug: string }
+    //searchParams: { [key: string]: string | string[] | undefined }
 }
-export function generateMetadata({ params, searchParams }: Props): Metadata {
-    console.log("params1111", searchParams)
+export function generateMetadata({ params }: Props): Metadata {
+    console.log("params1111", params)
+    const slug = params.slug
+    console.log(slug[0])
     return {
-        title: params.id,
+        title: slug[0],
     }
   }
 
@@ -41,11 +43,16 @@ const Page = async ({
     //const a = slug.split(/[/]/)
     return (
         <>
+            
             {productsByCategory ? (
+                <>
                 <Products data={productsByCategory}/>
+                </>
             ) : null}
             {product ? (
+                <>
                 <Product data={product}/>
+                </>
             ) : null}
         </>
     )
