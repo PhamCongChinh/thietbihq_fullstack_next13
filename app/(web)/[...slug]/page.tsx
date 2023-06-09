@@ -1,5 +1,17 @@
 import Products from "@/components/includes/Products"
 import Product from "@/components/includes/Product"
+import { Metadata } from "next"
+
+type Props = {
+    params: { id: string }
+    searchParams: { [key: string]: string | string[] | undefined }
+}
+export function generateMetadata({ params, searchParams }: Props): Metadata {
+    console.log("params1111", searchParams)
+    return {
+        title: params.id,
+    }
+  }
 
 async function getProductsByCategory(slug: string) {
     const res = await fetch(`http://localhost:3000/api/getProductsByCategory/${slug}`)

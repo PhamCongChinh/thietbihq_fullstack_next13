@@ -1,3 +1,10 @@
+import { Metadata } from "next"
+
+export const metadata: Metadata = {
+    title: 'Tin tuc',
+    description: 'Tin tuc cong ty'
+}
+
 const Page = () => {
     return (
         <div>Trang tin tức
