@@ -41,13 +41,33 @@ const cartSlice = createSlice({
         incrementQuantity(state, actions){
             const existingItem = state.find((item: any) => item.id === actions.payload)
             existingItem.quantity++
-            //localStorage.setItem("cart", JSON.stringify(state))
-        }
+            localStorage.setItem("cart", JSON.stringify(state))
+        },
+        decrementQuantity(state, actions){
+            const existingItem = state.find((item: any) => item.id === actions.payload)
+            if (existingItem.quantity === 1) {
+                const indexItem = state.findIndex((item: any) => item.id === actions.payload) //tim index
+                state.splice(indexItem, 1) // xoa khoi danh sach
+            }else{
+                existingItem.quantity--
+            }
+            console.log(existingItem.quantity)
+            localStorage.setItem("cart", JSON.stringify(state))
+        },
+        removeFromCart(state, actions){
+            const indexItem = state.findIndex((item: any) => item.id === actions.payload)
+            console.log(state.quantity)
+            state.splice(indexItem, 1)
+            localStorage.setItem("cart", JSON.stringify(state))
+        },
     }
 })
 
 export const {
-    addToCart, incrementQuantity
+    addToCart,
+    incrementQuantity,
+    decrementQuantity,
+    removeFromCart,
 } = cartSlice.actions
 export const items = (state: RootState) => state.cart.items
 export default cartSlice.reducer

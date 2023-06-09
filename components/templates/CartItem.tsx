@@ -1,6 +1,6 @@
 'use client'
 import { fetcher } from "@/helpers/constants"
-import { incrementQuantity } from "@/redux/features/cartSlice"
+import { decrementQuantity, incrementQuantity, removeFromCart } from "@/redux/features/cartSlice"
 import { useAppDispatch } from "@/redux/hook"
 import Image from "next/image"
 import useSWR from "swr"
@@ -17,11 +17,18 @@ const CartItem = (props: any) => {
                 <div key={item.id} className="flex">
                     <div><Image src={`/images/products/${item.image}`} alt={"asd"} width={100} height={100}/></div>
                     <p>{item.name}</p>
-                    <button onClick={
+                    <button className="p-3" onClick={
                         () => dispatch(incrementQuantity(item.id))
                     }>Tang</button>
+                    <button className="p-3" onClick={
+                        () => dispatch(decrementQuantity(item.id))
+                    }>Giam</button>
+                    <button className="p-3" onClick={
+                        () => dispatch(removeFromCart(item.id))
+                    }>Xoa</button>
                 </div>
             ))}
+
         </div>
     )
 }

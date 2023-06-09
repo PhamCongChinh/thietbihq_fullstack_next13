@@ -7,6 +7,7 @@ import CartItem from "./CartItem"
 const CartItems = () => {
     const cart = useAppSelector((state) => state.cart)
     const [cartItems, setCartItems] = useState([{id:0,quantity:0}])
+    const dispatch = useAppDispatch()
     useEffect(() => {
         return setCartItems(cart)
     },[cart])
@@ -14,13 +15,16 @@ const CartItems = () => {
     console.log(cartItems)
     
     return(
+        <>
         <ul>
             {cartItems.map((item) => (
                 <li key={item.id}>
                     <CartItem data={item.id}/>
                 </li>
             ))}
+            
         </ul>
+        </>
     )
 }
 export default CartItems
