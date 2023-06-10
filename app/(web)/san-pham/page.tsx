@@ -1,6 +1,8 @@
+import Loading from "@/app/loading"
 import Products from "@/components/includes/Products"
 import Breadcrumb from "@/components/templates/Breadcrumb"
 import { Metadata } from 'next'
+import { Suspense } from "react"
  
 export const metadata: Metadata = {
     title: 'Sản phẩm',
@@ -19,7 +21,9 @@ const Page = async () => {
         <div className="bg-slate-100">
             <Breadcrumb data={'Sản phẩm'}/>
         </div>
-        <Products data={data}/>
+        <Suspense fallback={<Loading/>}>
+            <Products data={data}/>
+        </Suspense>
         </>
     )
 }

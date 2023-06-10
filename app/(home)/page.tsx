@@ -1,5 +1,3 @@
-//'use client'
-
 import { Inter } from 'next/font/google'
 import Link from 'next/link'
 
@@ -12,7 +10,6 @@ async function getProducts() {
     const res = await fetch(`http://localhost:3000/api/products`)
     return res.json()
 } 
-
 
 const Home = async () => {
     const data = await getProducts()
