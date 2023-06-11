@@ -13,6 +13,7 @@ type Data = {
     name: string,
     slug: string,
     image: string,
+    code: string,
     image_list:string,
     price:string,
     content:string,
@@ -25,6 +26,7 @@ let Category: Data = {
     id_category: "",
     name: "",
     slug: "",
+    code: "",
     image: "",
     image_list: "",
     price: "",
@@ -75,6 +77,7 @@ const Products = () => {
         formData.append('id_category', select)
         formData.append('name', e.target.name.value)
         formData.append('slug', e.target.slug.value)
+        formData.append('code', e.target.code.value)
         formData.append('image', image)
         formData.append('image_list', e.target.image_list.value)
         formData.append('price', e.target.price.value)
@@ -105,6 +108,7 @@ const Products = () => {
         formData.append('id_category', e.target.id_category.value)
         formData.append('name', e.target.name.value)
         formData.append('slug', e.target.slug.value)
+        formData.append('code', e.target.code.value)
         formData.append('image', image)
         formData.append('image_name', showUpdate.data.image)
         formData.append('image_list', e.target.image_list.value)
@@ -112,18 +116,6 @@ const Products = () => {
         formData.append('content', e.target.content.value)
         formData.append('discount', e.target.discount.value)
         formData.append('view', e.target.view.value)
-
-        console.log("id", e.target.id.value)
-        console.log("id_category", e.target.id_category.value)
-        console.log("name", e.target.name.value)
-        console.log("slug", e.target.slug.value)
-        console.log("image name", showUpdate.data.image)
-        console.log("image", image)
-        console.log("image_list", e.target.image_list.value)
-        console.log("price", e.target.price.value)
-        console.log("content", e.target.content.value)
-        console.log("discount", e.target.discount.value)
-        console.log("view", e.target.view.value)
 
         return await api.put(`/api/products`, formData, {
             headers: {"Content-Type": "multipart/form-data"}
@@ -190,6 +182,10 @@ const Products = () => {
                                             <div className="flex justify-between mt-2">
                                                 <label htmlFor="">Slug</label>
                                                 <input type="text" name="slug" className="border"/>
+                                            </div>
+                                            <div className="flex justify-between mt-2">
+                                                <label htmlFor="">Code</label>
+                                                <input type="text" name="code" className="border"/>
                                             </div>
                                             <div className="flex justify-between mt-2">
                                                 <label htmlFor="">Image</label>
@@ -273,6 +269,10 @@ const Products = () => {
                                 <div className="grid grid-cols-2">
                                     <label htmlFor="">Slug</label>
                                     <input type="text" defaultValue={showUpdate.data.slug} name="slug"/>
+                                </div>
+                                <div className="grid grid-cols-2">
+                                    <label htmlFor="">Code</label>
+                                    <input type="text" defaultValue={showUpdate.data.code} name="code"/>
                                 </div>
                                 <div className="grid grid-cols-2">
                                     <label htmlFor="">Image</label>
@@ -369,6 +369,7 @@ const Products = () => {
                                         id_category: item.id_category,
                                         name: item.name,
                                         slug: item.slug,
+                                        code: item.code,
                                         image: item.image,
                                         image_list: item.image_list,
                                         price: item.price,

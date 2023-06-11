@@ -1,15 +1,16 @@
 'use client'
 
+import { fetcher } from "@/helpers/constants"
 import Link from "next/link"
-import Image from "next/image"
 import { useSearchParams } from "next/navigation"
+import useSWR from "swr"
+import Image from "next/image"
 
-const Products = (props: any) => {
-    const data = props.data
-    console.log(data)
-    const search = useSearchParams()
-    console.log("search", search)
-
+export default function ProductsPerPage(){
+    const searchParams = useSearchParams()
+    const page = searchParams.get("page")
+    const {data, error, isLoading, mutate} = useSWR(`/api/productsPerPage?page=${page}`, fetcher)
+    console.log("client", data)
     return (
         <div className="grid grid-cols-2 gap-1 md:grid-cols-3">
             {data?.map((item: any) => {
@@ -28,5 +29,3 @@ const Products = (props: any) => {
         </div>
     )
 }
-
-export default Products

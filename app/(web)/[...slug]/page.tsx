@@ -36,9 +36,6 @@ const Page = async ({
         productsByCategory = await getProductsByCategory(slug[0])
     }if (slug.length === 2) {
         product = await getProduct(slug[1])
-    } else {
-        productsByCategory = []
-        product = []
     }
     //const a = slug.split(/[/]/)
     return (
