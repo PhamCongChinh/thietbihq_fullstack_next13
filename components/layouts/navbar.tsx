@@ -32,7 +32,7 @@ const Navbar = () => {
                 </div>
                 <div className="flex justify-center items-center">Lien he voi tao</div>
             </div>
-            <div className="hidden w-full md:block bg-gray-100">
+            <div className="hidden w-full md:block bg-gray-500">
                 <div className="container flex flex-wrap items-center justify-between mx-auto p-2">
                     <ul className="flex">
                         <li className="pr-3"><Link href={`/`}>Trang chủ</Link></li>

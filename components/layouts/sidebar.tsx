@@ -6,16 +6,22 @@ async function getData() {
     return res.json()
 }
 
-export default function Sidebar (){
+/*export default async function Sidebar (){
+   
+    //const data = use(getData())
+    const data = await getData()
+    return(
+        <SidebarItems data={data}/>
+    )
+}*/
+
+const Sidebar = () => {
    
     const data = use(getData())
+    //const data = await getData()
     return(
         <SidebarItems data={data}/>
     )
 }
 
-//export default Sidebar
-
- /*const {data, error, isLoading} = useSWR(`/api/categories`, fetcher)
-    if (error) {return <div>Error</div>}
-    if (isLoading) {return <div>Loading...</div>}*/
+export default Sidebar

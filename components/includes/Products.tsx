@@ -2,14 +2,8 @@
 
 import Link from "next/link"
 import Image from "next/image"
-import { useSearchParams } from "next/navigation"
 
-const Products = (props: any) => {
-    const data = props.data
-    console.log(data)
-    const search = useSearchParams()
-    console.log("search", search)
-
+const Products = ({data}: any) => {
     return (
         <div className="grid grid-cols-2 gap-1 md:grid-cols-3">
             {data?.map((item: any) => {

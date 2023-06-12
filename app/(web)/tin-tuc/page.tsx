@@ -2,7 +2,7 @@ import Breadcrumb from "@/components/templates/Breadcrumb"
 import { Metadata } from "next"
 
 export const metadata: Metadata = {
-    title: 'Tin tuc',
+    title: 'Tin tuc 1',
     description: 'Tin tuc cong ty'
 }
 

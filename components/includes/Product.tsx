@@ -1,8 +1,7 @@
 import Image from "next/image"
 import AddToCart from "../templates/AddToCart"
 
-const Product = (props : any) => {
-    const data = props.data
+const Product = ({data} : any) => {
     console.log("data", data)
     return (
         <div>
@@ -37,9 +36,7 @@ const Product = (props : any) => {
                             <p className="font-semibold text-sm text-gray-700">Nam Định : <span className="text-red-500">0965 990 555</span></p>
                             <p className="font-semibold text-sm text-gray-700">Hà Nội : <span className="text-red-500">0979 342 589</span></p>
                         </div>
-
-
-                        <div className="mt-6 flex">
+                        <div className="mt-6 flex flex-row w-full">
                             <AddToCart data={item.id}/>
                         </div>
                     </div>
