@@ -8,6 +8,7 @@ import useSWR from 'swr'
 import { useSearchParams } from 'next/navigation'
 import api from "@/config/axiosconfig"
 import { ToastContainer, toast } from "react-toastify"
+import Button from "@/components/templates/Button"
 
 const Categories = () => {
     const searchParams = useSearchParams()
@@ -82,8 +83,8 @@ const Categories = () => {
     return (
         <div>
             <ToastContainer/>
+            
             <button onClick={() => {setShowCreate(!showCreate)}}>Tạo mới</button>
-
             {showCreate ? (
                 <>
                 <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
@@ -192,3 +193,6 @@ const Categories = () => {
 }
 
 export default Categories
+//
+//<Button data={() => {setShowCreate(!showCreate)}}/>
+

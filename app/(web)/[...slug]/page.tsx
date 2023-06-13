@@ -6,14 +6,22 @@ type Props = {
     params: { slug: string }
     //searchParams: { [key: string]: string | string[] | undefined }
 }
-export function generateMetadata({ params }: Props): Metadata {
-    console.log("params1111", params)
+
+async function getCategory(slug: string) {
+    const res = await fetch(`http://localhost:3000/api/categories/${slug}`)
+    return res.json()
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const slug = params.slug
     console.log(slug[0])
+    const [data] = await getCategory(slug[0])
+    console.log("getCategory", data)
     return {
-        title: slug[0],
+        title: data.name,
+        description: data.id
     }
-  }
+}
 
 async function getProductsByCategory(slug: string) {
     const res = await fetch(`http://localhost:3000/api/getProductsByCategory/${slug}`)
@@ -29,7 +37,6 @@ const Page = async ({
 }:{
     params: { slug: string}
 }) => {
-    console.log("slug:", slug)
     let productsByCategory = []
     let product = []
     if (slug.length === 1) {
