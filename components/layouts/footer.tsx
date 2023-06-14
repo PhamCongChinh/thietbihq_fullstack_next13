@@ -1,3 +1,5 @@
+import Link from "next/link"
+
 const Footer = () => {
     return (
         <div className="bg-blue-500 text-white p-4 border-t">
@@ -7,7 +9,9 @@ const Footer = () => {
                         <p className="py-4 font-semibold">CÔNG TY TNHH THƯƠNG MẠI VÀ SẢN XUẤT HQ VIỆT NAM</p>
                     </div>
                     <div>
-                        <p className="text-sm"><span className="font-semibold">Website</span> : https://thietbihq.com</p>
+                        <p className="text-sm"><span className="font-semibold">
+                            Website</span> : <Link href={`https://thietbihq.com`} className="underline">https://thietbihq.com</Link>
+                        </p>
                     </div>
                     <div className="text-sm pt-4">
                         <p className="text-sm font-semibold">Trụ sở chính</p>
