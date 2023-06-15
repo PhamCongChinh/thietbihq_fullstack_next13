@@ -33,7 +33,14 @@ const CartItems = () => {
                     </li>
                 ))}
             </ul>
-            <div className="float-right"><Link href={`/gio-hang/dat-hang`}>Dat hang</Link></div>
+            <div className="mx-auto flex justify-between px-3 py-5">
+                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    <Link href="/san-pham">Mua tiếp</Link>
+                </button>
+                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    <Link href={`/gio-hang/dat-hang`}>Đặt hàng</Link>
+                </button>
+            </div>
             </>
         )}
         </>

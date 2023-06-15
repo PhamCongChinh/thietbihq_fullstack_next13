@@ -16,17 +16,18 @@ export async function POST(request: Request) {
     const password = res.password
 
     const [ data ] = await query(`SELECT password FROM user WHERE username = ?`, [username])
+    console.log("Password is crypted", data)
     if (data) {
         const originalPassword = await decrypt(data.password, cryptoSecret!)
-        console.log("originalPassword:", originalPassword)
+        console.log("OriginalPassword:", originalPassword)
         if (password === originalPassword) {
             const accessToken = await signAccessToken(username, accessTokenSecret!)
             console.log("token is stored in cookie webpage: ", accessToken)
-            const response = NextResponse.json({ message: SUCCESS })
+            const response = NextResponse.json(SUCCESS)
             response.cookies.set('token', accessToken, {
                 secure: true,
                 sameSite: "strict",
-                //maxAge: 60,
+                maxAge: 60 * 60 * 2,
                 httpOnly: true,
                 path: "/",
             })
@@ -36,10 +37,10 @@ export async function POST(request: Request) {
             await query(`UPDATE user SET refreshToken = '`+ refreshToken +`' WHERE username = ?`, [username])
             return response
         }else{
-            return NextResponse.json({ message: UNSUCCESS })
+            return NextResponse.json(UNSUCCESS)
         }
     }else{
-        return NextResponse.json({ message: NOTFOUND })
+        return NextResponse.json(NOTFOUND)
     }
 }
 

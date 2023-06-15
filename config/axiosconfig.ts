@@ -1,7 +1,7 @@
 import axios from "axios"
 
 const api = axios.create({
-    timeout: 10000,
+    timeout: 5000,
     headers:{
         "Content-Type": ["application/json", "multipart/form-data"],
     }

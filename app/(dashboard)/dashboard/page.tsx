@@ -1,5 +1,8 @@
-
+import { headers } from 'next/headers'
 const Dashboard = () => {
+    const headersInstance = headers()
+    const authorization = headersInstance.get('authorization')
+    console.log("authorization:", authorization)
     return (
         <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg">
             <div className="grid grid-cols-3 gap-4 mb-4">
