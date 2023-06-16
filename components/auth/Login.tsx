@@ -20,7 +20,6 @@ const Login = () => {
         return await api.post(`/api/login`, formData)
         .then(res => {
             if (res.data.status === '0' && res.data.ecode === '00') {
-                toast.info("dang nhap thanh cong")
                 router.push(`/dashboard`)
             }else if (res.data.status === '0' && res.data.ecode === '09'){
                 toast.warn("Khong tim thay user")
