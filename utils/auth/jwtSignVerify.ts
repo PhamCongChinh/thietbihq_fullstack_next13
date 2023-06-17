@@ -25,7 +25,14 @@ const signRefreshToken = async ( payload: JWTPayload, secret: string) => {
 }
 
 const verify = async (token: string, secret: string) => {
-    const { payload } = await jwtVerify(token, new TextEncoder().encode(secret))
+    let payload
+    try {
+        const verified = await jwtVerify(token, new TextEncoder().encode(secret))
+        payload = verified.payload
+    } catch (error) {
+        console.log(error)
+    }
+    console.log("payload in jwtSignVerify:", payload)
     return payload
 }
 

@@ -4,13 +4,6 @@ import { verify } from './utils/auth/jwtSignVerify'
 import { decodeJwt } from 'jose'
 import { accessTokenSecret, fetcher, refreshTokenSecret } from './helpers/constants'
 
-async function getUser(payload: any) {
-    const res = await fetch(`http://localhost:3000/api/users/admin`)
-    console.log(res.json())
-    return res.json()
-}
-
-
 export async function middleware(request: NextRequest) {
     console.log("-------Middleware--------")
     let ip = request.ip ?? request.headers.get('x-real-ip')
@@ -19,6 +12,9 @@ export async function middleware(request: NextRequest) {
         ip = forwardedFor.split(',').at(0) ?? 'Unknown'
     }
     //console.log("IP:", ip)
+
+    const requestHeaders = new Headers(request.headers)
+    console.log(requestHeaders.get("cookie"))
 
     const token = request.cookies.get('token')?.value
     console.log('Token in Cookies:', token)
@@ -35,8 +31,6 @@ export async function middleware(request: NextRequest) {
             if (error.code === 'ERR_JWT_EXPIRED') {
                 const claims = decodeJwt(token)
                 console.log("Claims: ", claims.payload)
-                getUser(claims.payload)
-                //console.log(getUser(claims.payload))
                 // Lay thong tin user
                 /*const user = await fetch(`http://localhost:3000/api/users/${claims.payload}`, {
                     method: 'GET',
@@ -64,11 +58,13 @@ export async function middleware(request: NextRequest) {
                     return redirect
                 }*/
             }else{
-                return NextResponse.redirect(loginURL)        
+                return NextResponse.next()
+                //return NextResponse.redirect(loginURL)        
             }
         }
     }else{
-        return NextResponse.redirect(loginURL)
+        return NextResponse.next()
+        //return NextResponse.redirect(loginURL)
     }
 }
 
