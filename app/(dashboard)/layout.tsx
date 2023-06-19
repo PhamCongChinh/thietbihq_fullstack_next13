@@ -25,7 +25,6 @@ export default async function DashboardLayout({
             <div className="p-4 sm:ml-64 sm:mt-14">
                 {children}
             </div>
-            
         </section>
     )
 }

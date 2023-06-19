@@ -18,8 +18,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const [data] = await getCategory(slug[0])
     console.log("getCategory", data)
     return {
-        title: data.name,
-        description: data.id
+        title: "data.name",
+        description: "data.id"
     }
 }
 

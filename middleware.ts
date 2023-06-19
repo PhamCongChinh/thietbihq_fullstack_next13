@@ -1,8 +1,12 @@
 import { NextResponse } from 'next/server'
 import { NextRequest } from 'next/server'
 import { verify } from './utils/auth/jwtSignVerify'
-import { decodeJwt } from 'jose'
+import { base64url, decodeJwt, decodeProtectedHeader, jwtDecrypt } from 'jose'
 import { accessTokenSecret, fetcher, refreshTokenSecret } from './helpers/constants'
+import IsAuthenticated from './utils/auth/isAuthenticated'
+
+const secret = base64url.decode('zH4NRP1HMALxxCFnRZABFA7GOJtzU_gIj02alfL1lvI')
+
 
 export async function middleware(request: NextRequest) {
     console.log("-------Middleware--------")
@@ -13,24 +17,52 @@ export async function middleware(request: NextRequest) {
     }
     //console.log("IP:", ip)
 
-    const requestHeaders = new Headers(request.headers)
-    console.log(requestHeaders.get("cookie"))
+    //const requestHeaders = new Headers(request.headers)
+    //console.log(requestHeaders.get("cookie")?.substring(6))
+    //const token = requestHeaders.get("cookie")?.substring(6)
+
+    const tokenHeader = request.headers.get('Cookie')
+    console.log("Token in Header:", tokenHeader)
 
     const token = request.cookies.get('token')?.value
     console.log('Token in Cookies:', token)
+
+    const requestHeaders = new Headers(request.headers)
+    requestHeaders.set('x-hello-from-middleware1', token!)
     
     const loginURL = new URL('/login', request.url)
 
-    if (token !== undefined) {
+    if (token === undefined) {
+        console.log(!token)
+        return NextResponse.redirect(loginURL)
+    }
+
+    IsAuthenticated(token)
+    
+    /*const response = NextResponse.next({
+        request: {
+            headers: requestHeaders
+        }
+    })*/
+    const response = NextResponse.next()
+    response.headers.set('x-hello-from-middleware2', token!)
+
+    return response
+    /*if (token !== undefined) {
         try {
-            const payload_access_token = await verify(token, accessTokenSecret!)
+            const payload_access_token = await verify(token, 'zH4NRP1HMALxxCFnRZABFA7GOJtzU_gIj02alfL1lvI')
             console.log("Payload in middleware: ", payload_access_token)
             return NextResponse.next()
         } catch (error: any) {
             console.log("Token is expired! \n")
             if (error.code === 'ERR_JWT_EXPIRED') {
-                const claims = decodeJwt(token)
-                console.log("Claims: ", claims.payload)
+                const response = NextResponse.next()
+                response.cookies.set('token', token)
+                
+                return response
+                //const claims = decodeJwt(token)
+                //const claims = await jwtDecrypt(token, secret)
+                //console.log("Claims: ", claims.payload)
                 // Lay thong tin user
                 /*const user = await fetch(`http://localhost:3000/api/users/${claims.payload}`, {
                     method: 'GET',
@@ -57,15 +89,13 @@ export async function middleware(request: NextRequest) {
                     await fetch(`UPDATE user SET refreshToken = ''`)
                     return redirect
                 }*/
-            }else{
-                return NextResponse.next()
-                //return NextResponse.redirect(loginURL)        
+            /*}else{
+                return NextResponse.redirect(loginURL)        
             }
         }
     }else{
-        return NextResponse.next()
-        //return NextResponse.redirect(loginURL)
-    }
+        return NextResponse.redirect(loginURL)
+    }*/
 }
 
 export const config = {
