@@ -17,7 +17,7 @@ const Register = () => {
             formData.append("password", password)
             formData.append("repassword", repassword)
             console.log("Register:", formData)
-            return await api.post(`/api/register`, formData)
+            return await api.post(`/api/auth/register`, formData)
             .then(res => {
                 if (res.data.status == "0" && res.data.ecode == "00") {
                     toast("Tao tai khoan thành công", { hideProgressBar: true, autoClose: 2000, type: 'success' })

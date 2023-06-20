@@ -17,7 +17,7 @@ const Login = () => {
         formData.append("username", username)
         formData.append("password", password)
 
-        return await api.post(`/api/login`, formData)
+        return await api.post(`/api/auth/login`, formData)
         .then(res => {
             if (res.data.status === '0' && res.data.ecode === '00') {
                 router.push(`/dashboard`)

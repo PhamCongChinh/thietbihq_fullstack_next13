@@ -21,19 +21,19 @@ export async function middleware(request: NextRequest) {
     //console.log(requestHeaders.get("cookie")?.substring(6))
     //const token = requestHeaders.get("cookie")?.substring(6)
 
-    const tokenHeader = request.headers.get('Cookie')
-    console.log("Token in Header:", tokenHeader)
-
+    //B1
     const token = request.cookies.get('token')?.value
     console.log('Token in Cookies:', token)
 
+    //const tokenHeader = request.headers.get('Cookie')
+    //console.log("Token in Header:", tokenHeader)
+
     const requestHeaders = new Headers(request.headers)
-    requestHeaders.set('x-hello-from-middleware1', token!)
+    requestHeaders.set('Authentication', token!)
     
     const loginURL = new URL('/login', request.url)
 
     if (token === undefined) {
-        console.log(!token)
         return NextResponse.redirect(loginURL)
     }
 
@@ -102,6 +102,6 @@ export const config = {
     matcher: [
         '/dashboard',
         '/dashboard/:path*',
-        //'/api/:function*'
+        '/api/auth/:function*'
     ],
 }

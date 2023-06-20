@@ -7,6 +7,7 @@ import { decrypt } from "@/helpers/crypto"
 export async function GET(request: Request) {
     const users = await query( 'SELECT * FROM `user`', [] )
     console.log(users)
+    console.log("first")
     return NextResponse.json({ users })
 }
 
@@ -14,6 +15,7 @@ export async function POST(request: Request) {
     const res = await request.json() //{ username: 'admin', password: 'admin' }
     const username = res.username
     const password = res.password
+    console.log(res)
 
     const [ data ] = await query(`SELECT password FROM user WHERE username = ?`, [username])
     console.log("Password is crypted", data)
