@@ -5,7 +5,7 @@ import useSWR from "swr"
 
 const Order = (props: any) => {
     const id = props.data
-    const {data, error, isLoading} = useSWR(`/api/products/${id}`, fetcher)
+    const {data, error, isLoading} = useSWR(`/api/data/products/${id}`, fetcher)
     console.log(data)
     return (
         <div>

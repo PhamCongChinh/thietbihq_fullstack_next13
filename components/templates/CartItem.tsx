@@ -9,7 +9,7 @@ import useSWR from "swr"
 const CartItem = (props: any) => {
     const cartItem = props.data
     const dispatch = useAppDispatch()
-    const {data, error, isLoading} = useSWR(`/api/products/${cartItem.id}`, fetcher)
+    const {data, error, isLoading} = useSWR(`/api/data/products/${cartItem.id}`, fetcher)
     if(error) return <div>Error</div>
     if(isLoading) return <div>Loading...</div>
     return (

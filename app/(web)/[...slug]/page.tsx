@@ -8,7 +8,7 @@ type Props = {
 }
 
 async function getCategory(slug: string) {
-    const res = await fetch(`http://localhost:3000/api/categories/${slug}`)
+    const res = await fetch(`http://localhost:3000/api/data/categories/${slug}`)
     return res.json()
 }
 
@@ -24,11 +24,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 async function getProductsByCategory(slug: string) {
-    const res = await fetch(`http://localhost:3000/api/getProductsByCategory/${slug}`)
+    const res = await fetch(`http://localhost:3000/api/data/getProductsByCategory/${slug}`)
     return res.json()
 }
 async function getProduct(slug: string) {
-    const res = await fetch(`http://localhost:3000/api/products/${slug}`)
+    const res = await fetch(`http://localhost:3000/api/data/products/${slug}`)
     return res.json()
 }
 

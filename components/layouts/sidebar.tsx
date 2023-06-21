@@ -2,7 +2,7 @@ import { use } from "react"
 import SidebarItems from "../includes/SidebarItems"
 
 async function getData() {
-    const res = await fetch(`http:localhost:3000/api/categories`)
+    const res = await fetch(`http:localhost:3000/api/data/categories`)
     return res.json()
 }
 

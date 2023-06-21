@@ -7,6 +7,7 @@ import IsAuthenticated from './utils/auth/isAuthenticated'
 
 const secret = base64url.decode('zH4NRP1HMALxxCFnRZABFA7GOJtzU_gIj02alfL1lvI')
 
+let redirectToLogin = false
 
 export async function middleware(request: NextRequest) {
     console.log("-------Middleware--------")
@@ -15,39 +16,52 @@ export async function middleware(request: NextRequest) {
     if(!ip && forwardedFor){
         ip = forwardedFor.split(',').at(0) ?? 'Unknown'
     }
-    //console.log("IP:", ip)
+    console.log("IP:", ip)
 
-    //const requestHeaders = new Headers(request.headers)
-    //console.log(requestHeaders.get("cookie")?.substring(6))
-    //const token = requestHeaders.get("cookie")?.substring(6)
+    let token : string | undefined
 
+    if (request.cookies.has("token")) {
+        token = request.cookies.get('token')?.value
+    } else if (request.headers.get("Authorization")?.startsWith("Bearer ")) {
+        token = request.headers.get("Authorization")?.substring(7)
+    }
     //B1
-    const token = request.cookies.get('token')?.value
-    console.log('Token in Cookies:', token)
+    console.log('Token in APP:', token)
 
-    //const tokenHeader = request.headers.get('Cookie')
-    //console.log("Token in Header:", tokenHeader)
+    if (request.nextUrl.pathname.startsWith("/login") && (!token || redirectToLogin)){
+        return
+    }
 
-    const requestHeaders = new Headers(request.headers)
+
+    const response = NextResponse.next()
+
+
+    
+    /*const requestHeaders = new Headers(request.headers)
     requestHeaders.set('Authentication', token!)
     
     const loginURL = new URL('/login', request.url)
 
     if (token === undefined) {
         return NextResponse.redirect(loginURL)
-    }
+    }else{
+        const payload_access_token = await verify(token, 'zH4NRP1HMALxxCFnRZABFA7GOJtzU_gIj02alfL1lvI')
+        console.log("Payload in middleware: ", payload_access_token)
+        const response = NextResponse.next()
+        response.headers.set('x-hello-from-middleware2', token!)
 
-    IsAuthenticated(token)
+        return response
+    }*/
+
+    //IsAuthenticated(token)
+    
     
     /*const response = NextResponse.next({
         request: {
             headers: requestHeaders
         }
     })*/
-    const response = NextResponse.next()
-    response.headers.set('x-hello-from-middleware2', token!)
-
-    return response
+    
     /*if (token !== undefined) {
         try {
             const payload_access_token = await verify(token, 'zH4NRP1HMALxxCFnRZABFA7GOJtzU_gIj02alfL1lvI')
@@ -102,6 +116,6 @@ export const config = {
     matcher: [
         '/dashboard',
         '/dashboard/:path*',
-        '/api/auth/:function*'
+        '/api/data/:path*'
     ],
 }

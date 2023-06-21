@@ -17,9 +17,9 @@ export default function HomeLayout({
 }) {
     return (
         <section>
-            <Navbar/>
+            
             <div className="container mx-auto bg-white w-full grid md:grid-cols-5 my-3">
-                <div className="hidden md:block"><Sidebar/></div>
+                <div className="hidden md:block"></div>
                 <div className="p-1 md:col-span-4">
                     <Banner/>
                     <div className="grid grid-cols-4">
