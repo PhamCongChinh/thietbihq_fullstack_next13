@@ -1,16 +1,29 @@
+import api from '@/config/axiosconfig'
 import { headers } from 'next/headers'
-
+import { cookies } from 'next/headers'
 async function getProfiles() {
-    const headersInstance = headers()
-    const authorization = headersInstance.get('authorization')
-    console.log("authorization profile", authorization)
-    const res = await fetch(`http://localhost:3000/api/data/profile`, {
+    //const headersInstance = headers()
+    //const authorization = headersInstance.get('Authorization')
+    //console.log("authorization profile", authorization)
+
+    const cookieStore = cookies()
+    const authorization = cookieStore.get('token')
+
+    console.log("Auth Profile:", authorization?.value)
+
+    /*const res = await fetch(`http://localhost:3000/api/data/profile`, {
         headers: {
-            Authorization: `Bearer ${authorization}`
+            Authorization: `Bearer ${authorization?.value}`
         }
+    })*/
+    const res = await api.get(`http://localhost:3000/api/data/profile`,{
+        headers: {
+            'Authorization': `Bearer ${authorization}`
+          }
     })
-    const data = await res.json()
-    console.log(data)
+    console.log(res)
+    //const data = await res.json()
+    //console.log(data)
     return null
 }
 

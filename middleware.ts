@@ -3,7 +3,6 @@ import { NextRequest } from 'next/server'
 import { verify } from './utils/auth/jwtSignVerify'
 import { base64url, decodeJwt, decodeProtectedHeader, jwtDecrypt } from 'jose'
 import { accessTokenSecret, fetcher, refreshTokenSecret } from './helpers/constants'
-import IsAuthenticated from './utils/auth/isAuthenticated'
 
 const secret = base64url.decode('zH4NRP1HMALxxCFnRZABFA7GOJtzU_gIj02alfL1lvI')
 
@@ -16,7 +15,7 @@ export async function middleware(request: NextRequest) {
     if(!ip && forwardedFor){
         ip = forwardedFor.split(',').at(0) ?? 'Unknown'
     }
-    console.log("IP:", ip)
+    //console.log("IP:", ip)
 
     let token : string | undefined
 
@@ -34,7 +33,21 @@ export async function middleware(request: NextRequest) {
 
 
     const response = NextResponse.next()
-
+    /*try {
+        if (token) {
+            const { sub } = await verify<{sub:string}>(token)
+            console.log("sub", sub)
+            response.headers.set("X-USER-ID", sub)
+        }
+    } catch (error) {
+        redirectToLogin = true
+        if (request.nextUrl.pathname.startsWith("/api")) {
+            return ({401: "Token is invalid or user doesn't exists"});
+          }
+          return NextResponse.redirect(
+            new URL(`/login?${new URLSearchParams({ error: "badauth" })}`, request.url)
+          )
+    }*/
 
     
     /*const requestHeaders = new Headers(request.headers)
@@ -116,6 +129,7 @@ export const config = {
     matcher: [
         '/dashboard',
         '/dashboard/:path*',
-        '/api/data/:path*'
+        '/api/data/:path*',
+        '/profile'
     ],
 }

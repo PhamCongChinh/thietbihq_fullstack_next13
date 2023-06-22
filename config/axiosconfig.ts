@@ -5,16 +5,19 @@ const api = axios.create({
     timeout: 5000,
     headers:{
         "Content-Type": ["application/json", "multipart/form-data"],
-    }
+    },
+    withCredentials: true, // Để request gửi kèm cookie
 })
 
-/*api.interceptors.request.use(
+api.interceptors.request.use(
     async config => {
+
+        let accessToken  
         return config
     },
     error => {
         Promise.reject(error)
     }
-)*/
+)
 
 export default api

@@ -1,4 +1,4 @@
-import { accessTokenSecret } from "@/helpers/constants"
+import { accessTokenSecret, refreshTokenSecret } from "@/helpers/constants"
 import { EncryptJWT, JWTPayload, SignJWT, base64url, jwtDecrypt, jwtVerify } from "jose"
 
 const secret1 = base64url.decode('zH4NRP1HMALxxCFnRZABFA7GOJtzU_gIj02alfL1lvI')
@@ -23,12 +23,14 @@ const secret1 = base64url.decode('zH4NRP1HMALxxCFnRZABFA7GOJtzU_gIj02alfL1lvI')
     return jwt
 }
 */
-const signAccessToken = async (payload: {sub: string}, options: { exp: string}) => {
+const signAccessToken = async (payload: {sub: string}) => {
+    const iat = Math.floor(Date.now() / 1000)
+    const exp = iat + 30 // expired access token
     try {
         const alg = "HS256"
         return new SignJWT(payload)
         .setProtectedHeader({alg})
-        .setExpirationTime(options.exp)
+        .setExpirationTime(exp) //options.exp
         .setIssuedAt()
         .setSubject(payload.sub)
         .sign(new TextEncoder().encode(accessTokenSecret))
@@ -36,6 +38,7 @@ const signAccessToken = async (payload: {sub: string}, options: { exp: string}) 
         throw error
     }
 }
+
 const verify = async <T>(token: string): Promise<T> => {
     try {
         return (
@@ -46,28 +49,39 @@ const verify = async <T>(token: string): Promise<T> => {
         ).payload as T
     } catch (error) {
         //https://github.com/wpcodevo/nextjs13-user-signin-signup/blob/main/src/lib/token.ts
-        console.log(error);
+        //console.log(error);
         throw new Error("Your token has expired.");
     }
 }
 
 
-const signRefreshToken = async ( payload: JWTPayload, secret: string) => {
+const signRefreshToken = async ( payload: {sub: string}) => {
     const iat = Math.floor(Date.now() / 1000)
     const exp = iat + 60 * 2 // expired refresh token
+    try {
+        const alg = "HS256"
+        return new SignJWT(payload)
+        .setProtectedHeader({alg})
+        .setExpirationTime(exp) //options.exp
+        .setIssuedAt()
+        .setSubject(payload.sub)
+        .sign(new TextEncoder().encode(refreshTokenSecret))
+    } catch (error) {
+        throw error
+    }
     /*const jwt = new SignJWT({ payload })
         .setProtectedHeader({ alg: 'HS256', typ: 'JWT'})
         .setExpirationTime(exp)
         .setIssuedAt(iat)
         .setNotBefore(iat)
         .sign(new TextEncoder().encode(secret))*/
-    const jwt = await new EncryptJWT({ payload })
+    /*const jwt = await new EncryptJWT({ payload })
         .setProtectedHeader({ alg: 'dir', enc: 'A128CBC-HS256' })
         .setExpirationTime(exp)
         .setIssuedAt(iat)
         .setNotBefore(iat)
         .encrypt(secret1)
-    return jwt
+    return jwt*/
 }
 
 /*const verify = async (token: string, secret: any) => {

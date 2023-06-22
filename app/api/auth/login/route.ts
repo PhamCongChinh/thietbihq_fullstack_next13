@@ -18,15 +18,14 @@ export async function POST(request: Request) {
     const password = res.password
     console.log("Login:", res)
 
-    const [ data ] = await query(`SELECT id, password FROM user WHERE username = ?`, [username])
+    const [ data ] = await query(`SELECT password FROM user WHERE username = ?`, [username])
     console.log("Password is crypted", data)
     if (data) {
         const originalPassword = await decrypt(data.password, cryptoSecret!)
         console.log("OriginalPassword:", originalPassword)
         if (password === originalPassword) {
             const accessToken = await signAccessToken(
-                {sub: username},
-                {exp: '60'}
+                {sub: username}
             )
             console.log("token is stored in cookie webpage: ", accessToken)
             const response = NextResponse.json(SUCCESS)
@@ -38,7 +37,7 @@ export async function POST(request: Request) {
                 path: "/",
             })
 
-            const refreshToken = await signRefreshToken(username, refreshTokenSecret!)
+            const refreshToken = await signRefreshToken({sub: username})
             console.log("refreshToken is stored in database: ", refreshToken)
             await query(`UPDATE user SET refreshToken = '`+ refreshToken +`' WHERE username = ?`, [username])
             return response
