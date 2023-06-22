@@ -18,10 +18,9 @@ async function getProfiles() {
     })*/
     const res = await api.get(`http://localhost:3000/api/data/profile`,{
         headers: {
-            'Authorization': `Bearer ${authorization}`
+            'Authorization': `Bearer ${authorization?.value}`
           }
     })
-    console.log(res)
     //const data = await res.json()
     //console.log(data)
     return null

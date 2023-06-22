@@ -21,8 +21,10 @@ export async function middleware(request: NextRequest) {
 
     if (request.cookies.has("token")) {
         token = request.cookies.get('token')?.value
+        console.log("Token cookies:", token)
     } else if (request.headers.get("Authorization")?.startsWith("Bearer ")) {
         token = request.headers.get("Authorization")?.substring(7)
+        console.log("Token header:", token)
     }
     //B1
     console.log('Token in APP:', token)
@@ -33,7 +35,7 @@ export async function middleware(request: NextRequest) {
 
 
     const response = NextResponse.next()
-    /*try {
+    try {
         if (token) {
             const { sub } = await verify<{sub:string}>(token)
             console.log("sub", sub)
@@ -47,7 +49,7 @@ export async function middleware(request: NextRequest) {
           return NextResponse.redirect(
             new URL(`/login?${new URLSearchParams({ error: "badauth" })}`, request.url)
           )
-    }*/
+    }
 
     
     /*const requestHeaders = new Headers(request.headers)
